@@ -1,4 +1,4 @@
-package com.example.daytoursearchengine_team2d;
+package Controllers;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

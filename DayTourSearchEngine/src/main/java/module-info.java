@@ -3,6 +3,6 @@ module com.example.daytoursearchengine_team2d {
     requires javafx.fxml;
 
 
-    opens com.example.daytoursearchengine_team2d to javafx.fxml;
-    exports com.example.daytoursearchengine_team2d;
+    opens Controllers to javafx.fxml;
+    exports Controllers;
 }
