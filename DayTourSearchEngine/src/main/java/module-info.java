@@ -1,4 +1,4 @@
-module com.example.daytoursearchengine_team2d {
+module DayTourSearchEngine {
     requires javafx.controls;
     requires javafx.fxml;
 
