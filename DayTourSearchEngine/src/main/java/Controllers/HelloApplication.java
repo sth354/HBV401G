@@ -16,8 +16,7 @@ public class HelloApplication extends Application {
         stage.setScene(scene);
         stage.show();
     }
-
-    //Comment test Freyr
+    
     public static void main(String[] args) {
         launch();
     }
