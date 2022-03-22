@@ -61,7 +61,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.example.daytoursearchengine_team2d/Controllers.TourApplication
+                                com.example.daytoursearchengine_team2d/Controllers.HelloApplication
                             </mainClass>
                         </configuration>
                     </execution>
