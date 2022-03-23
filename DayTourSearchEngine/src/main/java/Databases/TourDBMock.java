@@ -2,7 +2,7 @@ package Databases;
 
 import Model.DayTour;
 
-public class TourDBMock implements TourDB{
+public class TourDBMock implements TourDB {
     private DayTour[] tours;
 
     public TourDBMock() {
