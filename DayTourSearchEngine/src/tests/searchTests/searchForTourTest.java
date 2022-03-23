@@ -5,7 +5,7 @@ import Model.DayTour;
 import org.junit.*;
 import static org.junit.Assert.*;
 
-public class searchForNameTest {
+public class searchForTourTest {
     private ToursController tc;
     private DayTour tour;
 
@@ -16,13 +16,13 @@ public class searchForNameTest {
         tour = new DayTour("Tour1");
     }
     @After
-    public void tearDown() {
+    public void tearDown() { //oþarfi
         tc = null;
         tour = null;
     }
     @Test
     public void testName() {
-        String test1 = "our1";
+        String test1 = "1";
 
         DayTour searchedTour = tc.search(test1);
 

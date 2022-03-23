@@ -1,4 +1,7 @@
 package Databases;
 
-public class TourDB {
+import Model.DayTour;
+
+public interface TourDB {
+    public DayTour select(String searchQuery);
 }
