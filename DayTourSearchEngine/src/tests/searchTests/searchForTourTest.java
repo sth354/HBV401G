@@ -12,7 +12,6 @@ public class searchForTourTest {
     @Before
     public void setUp() {
         tc = new ToursController();
-        tc.initialize(null,null);
         tour = new DayTour("Tour1");
     }
     @After
@@ -23,9 +22,10 @@ public class searchForTourTest {
     @Test
     public void testName() {
         String test1 = "1";
+        tc.initialize(null,null);
+        tc.search(test1);
+        tc.onSearchButtonClick();
 
-        DayTour searchedTour = tc.search(test1);
-
-        assertEquals(tour.getName(),searchedTour.getName());
+        assertEquals(tour.getName(),tc.getLabel());
     }
 }
