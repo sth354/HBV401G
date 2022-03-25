@@ -1,31 +1,39 @@
 package searchTests;
 
 import Controllers.ToursController;
+import Databases.TourDBMock;
 import Model.DayTour;
 import org.junit.*;
 import static org.junit.Assert.*;
 
 public class searchForTourTest {
+    private TourDBMock tourDBMock;
     private ToursController tc;
-    private DayTour tour;
 
     @Before
     public void setUp() {
-        tc = new ToursController();
-        tour = new DayTour("Tour1");
-    }
-    @After
-    public void tearDown() { //oþarfi
-        tc = null;
-        tour = null;
+        tourDBMock = new TourDBMock();
+        tc = new ToursController(tourDBMock);
     }
     @Test
-    public void testName() {
-        String test1 = "1";
-        tc.initialize(null,null);
-        tc.search(test1);
-        tc.onSearchButtonClick();
-
-        assertEquals(tour.getName(),tc.getLabel());
+    public void testFindOne() {
+        DayTour tour = new DayTour("Tour1");
+        String searchQuery = "our1";
+        DayTour[] testSearch = tc.search(searchQuery);
+        assertNotNull(testSearch);
+        assertEquals(testSearch[0].getName(),tour.getName());
+    }
+    @Test
+    public void testNotFind() {
+        String searchQuery = "our4";
+        DayTour[] testSearch = tc.search(searchQuery);
+        assertNull(testSearch);
+    }
+    @Test
+    public void testFindMultiple() {
+        String searchQuery = "Tour";
+        DayTour[] testSearch = tc.search(searchQuery);
+        assertNotNull(testSearch);
+        assertEquals(3,testSearch.length);
     }
 }

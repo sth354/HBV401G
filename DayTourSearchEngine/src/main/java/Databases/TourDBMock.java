@@ -2,6 +2,9 @@ package Databases;
 
 import Model.DayTour;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TourDBMock implements TourDB {
     private DayTour[] tours;
 
@@ -14,13 +17,16 @@ public class TourDBMock implements TourDB {
     }
 
     @Override
-    public DayTour select(String searchQuery) {
-        for (int i = 0;i < tours.length; i++) {
-            int x = tours[i].getName().indexOf(searchQuery);
+    public DayTour[] select(String searchQuery) throws Exception {
+        List<DayTour> out = new ArrayList<DayTour>();
+
+        for (DayTour tour : tours) {
+            int x = tour.getName().indexOf(searchQuery);
             if (x != -1) {
-                return tours[i];
+                out.add(tour);
             }
         }
-        return null;
+        if (out.size() == 0) throw new Exception();
+        return out.toArray(new DayTour[out.size()]);
     }
 }
