@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+import java.util.Locale;
+
 public class ToursController {
     private TourDB tours;
 
@@ -21,10 +23,11 @@ public class ToursController {
 
     @FXML
     public void onSearchButtonClick() {
-        searchLabel.setText("Yay!");
+        searchLabel.setText("");
     }
 
     public DayTour[] search(String searchQuery) {
+        searchQuery = searchQuery.toLowerCase();
         try {
             return tours.select(searchQuery);
         }

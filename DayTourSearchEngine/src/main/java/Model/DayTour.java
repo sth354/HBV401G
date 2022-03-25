@@ -19,4 +19,8 @@ public class DayTour {
     public String getName() {
         return name;
     }
+
+    public boolean equals(DayTour dayTour) {
+        return this.getName().equals(dayTour.getName());
+    }
 }

@@ -18,14 +18,22 @@ public class searchForTourTest {
     @Test
     public void testFindOne() {
         DayTour tour = new DayTour("Tour1");
-        String searchQuery = "our1";
+        String searchQuery = "Tour1";
         DayTour[] testSearch = tc.search(searchQuery);
         assertNotNull(testSearch);
-        assertEquals(testSearch[0].getName(),tour.getName());
+        assertTrue(tour.equals(testSearch[0]));
+    }
+    @Test
+    public void testFindCaps() {
+        DayTour tour = new DayTour("Tour2");
+        String searchQuery = "TOUR2";
+        DayTour[] testSearch = tc.search(searchQuery);
+        assertNotNull(testSearch);
+        assertTrue(tour.equals(testSearch[0]));
     }
     @Test
     public void testNotFind() {
-        String searchQuery = "our4";
+        String searchQuery = "Tour4";
         DayTour[] testSearch = tc.search(searchQuery);
         assertNull(testSearch);
     }

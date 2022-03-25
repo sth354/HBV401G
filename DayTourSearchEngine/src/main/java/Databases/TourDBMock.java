@@ -19,9 +19,8 @@ public class TourDBMock implements TourDB {
     @Override
     public DayTour[] select(String searchQuery) throws Exception {
         List<DayTour> out = new ArrayList<DayTour>();
-
         for (DayTour tour : tours) {
-            int x = tour.getName().indexOf(searchQuery);
+            int x = tour.getName().toLowerCase().indexOf(searchQuery);
             if (x != -1) {
                 out.add(tour);
             }
