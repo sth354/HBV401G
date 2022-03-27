@@ -7,12 +7,11 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 public class searchForTourTest {
-    private TourDBMock tourDBMock;
     private ToursController tc;
 
     @Before
     public void setUp() {
-        tourDBMock = new TourDBMock();
+        TourDBMock tourDBMock = new TourDBMock();
         tc = new ToursController(tourDBMock);
     }
     @Test
