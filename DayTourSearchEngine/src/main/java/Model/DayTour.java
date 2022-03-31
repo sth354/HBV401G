@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class DayTour {
     private String name;
@@ -91,7 +92,16 @@ public class DayTour {
     }
     */
 
-    public boolean equals(DayTour dayTour) {
-        return this.getName().equals(dayTour.getName());
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DayTour dayTour = (DayTour) o;
+        return length == dayTour.length && price == dayTour.price && Float.compare(dayTour.averageRating, averageRating) == 0 && name.equals(dayTour.name) && description.equals(dayTour.description) && date.equals(dayTour.date);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, description, date, length, price, averageRating);
     }
 }
