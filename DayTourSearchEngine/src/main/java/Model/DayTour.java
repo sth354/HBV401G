@@ -7,20 +7,20 @@ public class DayTour {
     private String description;
     private Date date;
     private int length;
-    private Tag[] tags;
+    //private Tag[] tags;
     private int price;
     private float averageRating;
-    private User[] authUsers;
+    //private User[] authUsers;
 
     public DayTour(String name, String description, Date date, int length, Tag[] tags, int price, float averageRating, User[] authUsers) {
         this.name = name;
         this.description = description;
         this.date = date;
         this.length = length;
-        this.tags = tags;
+        //this.tags = tags;
         this.price = price;
         this.averageRating = averageRating;
-        this.authUsers = authUsers;
+        //this.authUsers = authUsers;
     }
 
     public String getName() {
@@ -55,6 +55,7 @@ public class DayTour {
         this.length = length;
     }
 
+    /*
     public Tag[] getTags() {
         return tags;
     }
@@ -62,6 +63,7 @@ public class DayTour {
     public void setTags(Tag[] tags) {
         this.tags = tags;
     }
+    */
 
     public int getPrice() {
         return price;
@@ -79,6 +81,7 @@ public class DayTour {
         this.averageRating = averageRating;
     }
 
+    /*
     public User[] getAuthUsers() {
         return authUsers;
     }
@@ -86,6 +89,7 @@ public class DayTour {
     public void setAuthUsers(User[] authUsers) {
         this.authUsers = authUsers;
     }
+    */
 
     public boolean equals(DayTour dayTour) {
         return this.getName().equals(dayTour.getName());
