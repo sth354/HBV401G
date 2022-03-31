@@ -12,7 +12,7 @@ public class searchForTourTest {
     @Before
     public void setUp() {
         TourDBMock tourDBMock = new TourDBMock();
-        tc = new ToursController(tourDBMock);
+        tc.initialize(null,null);
     }
     @Test
     public void testFindOne() {

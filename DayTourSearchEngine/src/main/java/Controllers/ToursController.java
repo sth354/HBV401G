@@ -1,12 +1,17 @@
 package Controllers;
 
 import Databases.TourDB;
+import Databases.TourDBMock;
 import Model.DayTour;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class ToursController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class ToursController implements Initializable {
     private TourDB tours;
 
     @FXML
@@ -14,10 +19,6 @@ public class ToursController {
 
     @FXML
     private Label searchLabel;
-
-    public ToursController(TourDB tours) {
-        this.tours = tours;
-    }
 
     @FXML
     public void onSearchButtonClick() {
@@ -32,5 +33,10 @@ public class ToursController {
         catch (Exception e) {
             return null;
         }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        tours = new TourDBMock();
     }
 }
