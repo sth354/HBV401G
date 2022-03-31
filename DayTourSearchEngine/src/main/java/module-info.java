@@ -1,6 +1,7 @@
 module DayTourSearchEngine {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.sql;
 
 
     opens Controllers to javafx.fxml;

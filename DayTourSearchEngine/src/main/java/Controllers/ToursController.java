@@ -1,7 +1,6 @@
 package Controllers;
 
 import Databases.TourDB;
-import Databases.TourDBMock;
 import Model.DayTour;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -9,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class ToursController implements Initializable {
@@ -37,6 +37,10 @@ public class ToursController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        tours = new TourDBMock();
+        try {
+            tours = new TourDB();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }

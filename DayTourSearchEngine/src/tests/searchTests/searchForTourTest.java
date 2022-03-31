@@ -1,9 +1,12 @@
 package searchTests;
 
 import Controllers.ToursController;
-import Databases.TourDBMock;
 import Model.DayTour;
 import org.junit.*;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import static org.junit.Assert.*;
 
 public class searchForTourTest {
@@ -11,20 +14,22 @@ public class searchForTourTest {
 
     @Before
     public void setUp() {
-        TourDBMock tourDBMock = new TourDBMock();
+        tc = new ToursController();
         tc.initialize(null,null);
     }
     @Test
-    public void testFindOne() {
-        DayTour tour = new DayTour("Tour1");
+    public void testFindOne() throws ParseException {
+        SimpleDateFormat f = new SimpleDateFormat("yyyy/MM/dd");
+        DayTour tour = new DayTour("Tour1","testtour",f.parse("2022/03/31"),120,500, 0.0F);
         String searchQuery = "Tour1";
         DayTour[] testSearch = tc.search(searchQuery);
         assertNotNull(testSearch);
         assertTrue(tour.equals(testSearch[0]));
     }
     @Test
-    public void testFindCaps() {
-        DayTour tour = new DayTour("Tour2");
+    public void testFindCaps() throws ParseException {
+        SimpleDateFormat f = new SimpleDateFormat("yyyy/MM/dd");
+        DayTour tour = new DayTour("Tour2","testtour",f.parse("2022/04/01"),120,500, 0.0F);
         String searchQuery = "TOUR2";
         DayTour[] testSearch = tc.search(searchQuery);
         assertNotNull(testSearch);
