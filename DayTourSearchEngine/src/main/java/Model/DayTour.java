@@ -12,7 +12,7 @@ public class DayTour {
     private float averageRating;
     //private User[] authUsers;
 
-    public DayTour(String name, String description, Date date, int length, Tag[] tags, int price, float averageRating, User[] authUsers) {
+    public DayTour(String name, String description, Date date, int length, /*Tag[] tags,*/ int price, float averageRating /*, User[] authUsers*/) {
         this.name = name;
         this.description = description;
         this.date = date;
