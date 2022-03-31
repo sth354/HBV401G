@@ -12,7 +12,7 @@ public class TourDB {
     Connection conn;
 
     public TourDB() throws SQLException, ClassNotFoundException {
-        conn = DriverManager.getConnection("jdbc:sqlite:tours.db");
+        conn = DriverManager.getConnection("jdbc:sqlite:..\\databases\\tours.db");
     }
 
     public DayTour[] select(String searchQuery) throws SQLException, ParseException {

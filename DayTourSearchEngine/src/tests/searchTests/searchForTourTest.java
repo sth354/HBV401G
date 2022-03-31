@@ -39,13 +39,13 @@ public class searchForTourTest {
     public void testNotFind() {
         String searchQuery = "Tour4";
         DayTour[] testSearch = tc.search(searchQuery);
-        assertNull(testSearch);
+        assertEquals(0,testSearch.length);
     }
     @Test
     public void testFindMultiple() {
         String searchQuery = "Tour";
         DayTour[] testSearch = tc.search(searchQuery);
         assertNotNull(testSearch);
-        assertEquals(3,testSearch.length);
+        assertTrue(testSearch.length > 1);
     }
 }
