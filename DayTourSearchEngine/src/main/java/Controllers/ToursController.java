@@ -26,7 +26,6 @@ public class ToursController implements Initializable {
     }
 
     public DayTour[] search(String searchQuery) {
-        searchQuery = searchQuery.toLowerCase();
         try {
             return tours.select(searchQuery);
         }
