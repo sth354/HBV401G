@@ -11,7 +11,7 @@ public class TourApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(TourApplication.class.getResource("tour-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 300, 300);
+        Scene scene = new Scene(fxmlLoader.load(), 500, 400);
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
