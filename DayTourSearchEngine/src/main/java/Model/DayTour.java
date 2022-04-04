@@ -101,11 +101,6 @@ public class DayTour {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(name, description, date, length, price, averageRating);
-    }
-
-    @Override
     public String toString() {
         return name + ", " + description;
     }

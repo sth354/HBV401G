@@ -1,7 +1,78 @@
 package Controllers;
 
+import Databases.BookingDB;
+import Model.DayTour;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
-public class BookingController {
+import java.net.URL;
+import java.util.ResourceBundle;
 
+public class BookingController implements Initializable {
+    private BookingDB bookings;
+
+    @FXML
+    private AnchorPane fxDialog;
+    @FXML
+    private TextField fxCard;
+
+    private static final String OK = "Buy Tour";
+    private static final String CANCEL = "Cancel";
+
+    private Dialog<ButtonType> dialogBooking;
+    private static final ButtonType BTYPE = new ButtonType(OK,
+            ButtonBar.ButtonData.OK_DONE);
+    private static final ButtonType HTYPE = new ButtonType(CANCEL,
+            ButtonBar.ButtonData.CANCEL_CLOSE);
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        dialogBooking = createDialog();
+    }
+
+    private Dialog<ButtonType> createDialog() {
+        DialogPane p = new DialogPane();
+        fxDialog.setVisible(true);
+
+        p.setContent(fxDialog);
+
+        Dialog<ButtonType> d = new Dialog<>();
+
+        d.setDialogPane(p);
+
+        head(d);
+
+        // búa til hnappana á dialog d
+        ButtonType ok = doneCancelButtons(d);
+
+        // sett regla um hvenær í lagi hnappur er virkur
+        buyRule(p, ok);
+
+        return d;
+    }
+
+    private void head(Dialog<ButtonType> d) {
+        d.setHeaderText("Make booking:");
+        d.setTitle("Booking");
+    }
+
+    private ButtonType doneCancelButtons(Dialog<ButtonType> d) {
+        d.getDialogPane().getButtonTypes().add(BTYPE);
+        d.getDialogPane().getButtonTypes().add(HTYPE);
+        return BTYPE;
+    }
+
+    private void buyRule(DialogPane p, ButtonType ok) {
+        final Node buyButton = p.lookupButton(ok);
+        buyButton.disableProperty()
+                .bind(fxCard.textProperty().isEmpty());
+    }
+
+    public void makeBooking(DayTour dayTour) {
+        dialogBooking.showAndWait();
+    }
 }
