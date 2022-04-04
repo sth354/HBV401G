@@ -7,6 +7,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
@@ -55,6 +57,13 @@ public class ToursController implements Initializable {
             resultList.setItems(FXCollections.observableList(Arrays.asList(searchResult)));
             dialogResult.showAndWait();
             resultList.setItems(null);
+        }
+    }
+
+    @FXML
+    public void onEnterPress(KeyEvent keyEvent) throws IOException {
+        if (keyEvent.getCode().equals(KeyCode.ENTER)) {
+            onSearchButtonClick();
         }
     }
 
