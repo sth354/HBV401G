@@ -72,6 +72,11 @@ public class ToursController implements Initializable {
 
     }
 
+    @FXML
+    public void onLoginInClick() throws IOException {
+
+    }
+
     public DayTour[] search(String searchQuery) {
         try {
             return tours.select(searchQuery);
