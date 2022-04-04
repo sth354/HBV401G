@@ -4,8 +4,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane fx:id="fxDialog" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="392.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.BookingController">
+<AnchorPane fx:id="fxDialog" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="392.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.BookingController">
    <children>
       <Label layoutX="29.0" layoutY="43.0" prefHeight="17.0" prefWidth="65.0" text="Name:" />
       <Label layoutX="29.0" layoutY="88.0" prefHeight="17.0" prefWidth="65.0" text="Date:" />

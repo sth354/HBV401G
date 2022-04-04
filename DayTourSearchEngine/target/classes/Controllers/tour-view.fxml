@@ -18,5 +18,6 @@
       <TextField fx:id="searchBar" layoutX="70.0" layoutY="173.0" maxHeight="-Infinity" maxWidth="-Infinity" onKeyPressed="#onEnterPress" prefHeight="25.0" prefWidth="212.0" />
       <Button layoutX="340.0" layoutY="173.0" mnemonicParsing="false" onAction="#onSearchButtonClick" text="Search" />
       <Label fx:id="searchLabel" layoutX="70.0" layoutY="144.0" prefHeight="17.0" prefWidth="212.0" />
+      <Button layoutX="70.0" layoutY="274.0" mnemonicParsing="false" onAction="#onLoginInClick" text="Log In" />
    </children>
 </AnchorPane>
