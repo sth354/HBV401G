@@ -20,7 +20,7 @@ public class searchForTourTest {
     @Test
     public void testFindOne() throws ParseException {
         SimpleDateFormat f = new SimpleDateFormat("yyyy/MM/dd");
-        DayTour tour = new DayTour("Tour1","testtour",f.parse("2022/03/31"),120,500, 0.0F);
+        DayTour tour = new DayTour("Tour1","tourtest",f.parse("2022/03/31"),120,5000, 0.0F);
         String searchQuery = "Tour1";
         DayTour[] testSearch = tc.search(searchQuery);
         assertNotNull(testSearch);
@@ -29,7 +29,7 @@ public class searchForTourTest {
     @Test
     public void testFindCaps() throws ParseException {
         SimpleDateFormat f = new SimpleDateFormat("yyyy/MM/dd");
-        DayTour tour = new DayTour("Tour2","testtour",f.parse("2022/04/01"),120,500, 0.0F);
+        DayTour tour = new DayTour("Tour2","tourtest",f.parse("2022/04/01"),120,5000, 0.0F);
         String searchQuery = "TOUR2";
         DayTour[] testSearch = tc.search(searchQuery);
         assertNotNull(testSearch);

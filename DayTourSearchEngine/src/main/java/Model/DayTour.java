@@ -97,7 +97,7 @@ public class DayTour {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DayTour dayTour = (DayTour) o;
-        return length == dayTour.length && price == dayTour.price && Float.compare(dayTour.averageRating, averageRating) == 0 && name.equals(dayTour.name) && description.equals(dayTour.description) && date.equals(dayTour.date);
+        return length == dayTour.getLength() && price == dayTour.getPrice() && Float.compare(dayTour.getAverageRating(), averageRating) == 0 && name.equals(dayTour.getName()) && description.equals(dayTour.getDescription()) && date.equals(dayTour.getDate());
     }
 
     @Override
