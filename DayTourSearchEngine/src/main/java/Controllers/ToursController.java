@@ -74,6 +74,11 @@ public class ToursController implements Initializable {
        catch (NullPointerException ignored) {}
     }
 
+    @FXML
+    public void onLoginInClick() throws IOException {
+
+    }
+
     public DayTour[] search(String searchQuery) {
         if (searchQuery.equals("")) {
             searchLabel.setText("You have to type something...");
