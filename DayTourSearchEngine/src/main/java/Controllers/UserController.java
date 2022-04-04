@@ -9,7 +9,7 @@ public class UserController {
 
 
     public User[] getUsers() {
-
+        return null;
     }
 
     public void register() {
