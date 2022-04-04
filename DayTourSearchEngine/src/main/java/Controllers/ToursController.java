@@ -3,8 +3,8 @@ package Controllers;
 import Databases.TourDB;
 import Model.DayTour;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
@@ -31,11 +31,14 @@ public class ToursController implements Initializable {
     @FXML
     private ListView<DayTour> resultList;
 
+    @FXML
+    private Button buyTour;
+
 
     private static final String OK = "Done";
 
-
-    public static final ButtonType BTYPE = new ButtonType(OK,
+    private BookingController bc;
+    private static final ButtonType BTYPE = new ButtonType(OK,
             ButtonBar.ButtonData.OK_DONE);
 
     @FXML
@@ -53,6 +56,11 @@ public class ToursController implements Initializable {
             dialogResult.showAndWait();
             resultList.setItems(null);
         }
+    }
+
+    @FXML
+    public void onBuyButtonClick() {
+
     }
 
     public DayTour[] search(String searchQuery) {
@@ -91,5 +99,4 @@ public class ToursController implements Initializable {
     private void doneButton(Dialog<ButtonType> d) {
         d.getDialogPane().getButtonTypes().add(BTYPE);
     }
-
 }

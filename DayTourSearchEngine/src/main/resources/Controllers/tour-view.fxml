@@ -11,7 +11,8 @@
    <children>
       <Pane fx:id="fxDialog" prefHeight="400.0" prefWidth="481.0" visible="false">
          <children>
-            <ListView fx:id="resultList" prefHeight="400.0" prefWidth="481.0" />
+            <Button fx:id="buyTour" disable="true" layoutX="407.0" layoutY="23.0" mnemonicParsing="false" onAction="#onBuyButtonClick" prefHeight="25.0" prefWidth="52.0" text="Buy" />
+            <ListView fx:id="resultList" prefHeight="400.0" prefWidth="395.0" />
          </children>
       </Pane>
       <TextField fx:id="searchBar" layoutX="70.0" layoutY="173.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="212.0" />
