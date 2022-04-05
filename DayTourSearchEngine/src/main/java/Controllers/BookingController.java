@@ -19,6 +19,14 @@ public class BookingController implements Initializable {
     private AnchorPane fxDialog;
     @FXML
     private TextField fxCard;
+    @FXML
+    private Label fxName;
+    @FXML
+    private Label fxDate;
+    @FXML
+    private Label fxLength;
+    @FXML
+    private Label fxPrice;
 
     private static final String OK = "Buy Tour";
     private static final String CANCEL = "Cancel";
@@ -73,6 +81,11 @@ public class BookingController implements Initializable {
     }
 
     public void makeBooking(DayTour dayTour) {
+        fxName.setText(dayTour.getName());
+        fxDate.setText(dayTour.getDate().toString());
+        fxLength.setText(dayTour.getLength()+"");
+        fxPrice.setText(dayTour.getPrice()+"");
+
         dialogBooking.showAndWait();
     }
 }

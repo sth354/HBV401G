@@ -1,0 +1,19 @@
+CREATE TABLE DayToursDB (
+ name VARCHAR(50),
+ description VARCHAR(100),
+ date VARCHAR(10),
+ length int,
+ price int,
+ averageRating real
+);
+
+INSERT INTO DayToursDB VALUES ("Tour1","description","XXXX/XX/XX",xx,xx,x.x);
+
+CREATE TABLE UsersDB (
+ name VARCHAR(15),
+ email VARCHAR(25),
+ password VARCHAR(20),
+ moderator int
+);
+
+INSERT INTO UsersDB VALUES ("name","email","pw",0);

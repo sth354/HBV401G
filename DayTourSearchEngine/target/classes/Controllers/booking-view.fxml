@@ -4,17 +4,22 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="fxDialog" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="392.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.BookingController">
-   <children>
-      <Label layoutX="29.0" layoutY="43.0" prefHeight="17.0" prefWidth="65.0" text="Name:" />
-      <Label layoutX="29.0" layoutY="88.0" prefHeight="17.0" prefWidth="65.0" text="Date:" />
-      <Label layoutX="29.0" layoutY="135.0" prefHeight="17.0" prefWidth="65.0" text="Length" />
-      <Label layoutX="29.0" layoutY="188.0" prefHeight="17.0" prefWidth="65.0" text="Price:" />
-      <Label fx:id="fxName" layoutX="94.0" layoutY="43.0" prefHeight="17.0" prefWidth="174.0" />
-      <Label fx:id="fxDate" layoutX="94.0" layoutY="88.0" prefHeight="17.0" prefWidth="174.0" />
-      <Label fx:id="fxLength" layoutX="94.0" layoutY="135.0" prefHeight="17.0" prefWidth="174.0" />
-      <Label fx:id="fxPrice" layoutX="94.0" layoutY="188.0" prefHeight="17.0" prefWidth="174.0" />
-      <Label fx:id="fxPrice1" layoutX="29.0" layoutY="242.0" prefHeight="17.0" prefWidth="174.0" text="Billing Information:" />
-      <TextField fx:id="fxCard" layoutX="29.0" layoutY="266.0" prefHeight="17.0" prefWidth="200.0" />
-   </children>
+<?import javafx.scene.text.Font?>
+<AnchorPane fx:id="fxDialog" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="350.0" prefWidth="392.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Controllers.BookingController">
+   <Label layoutX="29.0" layoutY="43.0" prefHeight="17.0" prefWidth="65.0" text="Name:">
+      <font>
+         <Font name="System Bold" size="12.0"/>
+      </font>
+   </Label>
+   <Label layoutX="29.0" layoutY="88.0" prefHeight="17.0" prefWidth="65.0" text="Date:"/>
+   <Label layoutX="29.0" layoutY="135.0" prefHeight="17.0" prefWidth="65.0" text="Length:"/>
+   <Label layoutX="29.0" layoutY="188.0" prefHeight="17.0" prefWidth="65.0" text="Price:"/>
+   <Label fx:id="fxName" layoutX="94.0" layoutY="43.0" prefHeight="17.0" prefWidth="174.0"/>
+   <Label fx:id="fxDate" layoutX="94.0" layoutY="88.0" prefHeight="17.0" prefWidth="174.0"/>
+   <Label fx:id="fxLength" layoutX="94.0" layoutY="135.0" prefHeight="17.0" prefWidth="174.0"/>
+   <Label fx:id="fxPrice" layoutX="94.0" layoutY="188.0" prefHeight="17.0" prefWidth="174.0"/>
+   <Label layoutX="29.0" layoutY="242.0" prefHeight="17.0" prefWidth="174.0" text="Billing Information:"/>
+   <TextField fx:id="fxCard" layoutX="29.0" layoutY="266.0" prefHeight="17.0" prefWidth="200.0"/>
 </AnchorPane>
