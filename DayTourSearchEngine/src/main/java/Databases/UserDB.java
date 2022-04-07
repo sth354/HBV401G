@@ -14,18 +14,15 @@ public class UserDB {
         conn = DriverManager.getConnection("jdbc:sqlite:..\\databases\\tours.db");
     }
 
-    public boolean select(User username) throws SQLException, ParseException {
+    public User select(String email, String password) throws SQLException, ParseException {
         List<User> out = new ArrayList<User>();
 
         Statement s = conn.createStatement();
-        String str = "SELECT * FROM UsersDB;";
+        String str = "SELECT * FROM UsersDB WHERE email = \""+email+"\" AND password = \""+password+"\";";
         ResultSet rs = s.executeQuery(str);
-
-        while (rs.next()) {
-            User outD = new User(rs.getString("name"),rs.getString("emailAddress"),rs.getString("password"),rs.getBoolean("moderator"));
-            if (username.equals(outD))
-                return true;
+        if (rs.next()) {
+            return new User(rs.getString("name"),rs.getString("email"),rs.getString("password"),rs.getBoolean("moderator"));
         }
-        return false;
+        return null;
     }
 }

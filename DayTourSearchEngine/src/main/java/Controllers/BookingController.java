@@ -37,6 +37,15 @@ public class BookingController implements Initializable {
     private static final ButtonType HTYPE = new ButtonType(CANCEL,
             ButtonBar.ButtonData.CANCEL_CLOSE);
 
+    public void makeBooking(DayTour dayTour) {
+        fxName.setText(dayTour.getName());
+        fxDate.setText(dayTour.getDate().toString());
+        fxLength.setText(dayTour.getLength()+"");
+        fxPrice.setText(dayTour.getPrice()+"");
+
+        dialogBooking.showAndWait();
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         dialogBooking = createDialog();
@@ -54,10 +63,8 @@ public class BookingController implements Initializable {
 
         head(d);
 
-        // búa til hnappana á dialog d
         ButtonType ok = doneCancelButtons(d);
 
-        // sett regla um hvenær í lagi hnappur er virkur
         buyRule(p, ok);
 
         return d;
@@ -78,14 +85,5 @@ public class BookingController implements Initializable {
         final Node buyButton = p.lookupButton(ok);
         buyButton.disableProperty()
                 .bind(fxCard.textProperty().isEmpty());
-    }
-
-    public void makeBooking(DayTour dayTour) {
-        fxName.setText(dayTour.getName());
-        fxDate.setText(dayTour.getDate().toString());
-        fxLength.setText(dayTour.getLength()+"");
-        fxPrice.setText(dayTour.getPrice()+"");
-
-        dialogBooking.showAndWait();
     }
 }

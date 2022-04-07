@@ -2,6 +2,7 @@ package Controllers;
 
 import Databases.TourDB;
 import Model.DayTour;
+import Model.User;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,12 +16,11 @@ import javafx.scene.paint.Color;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class ToursController implements Initializable {
-    private TourDB tours;
-
     @FXML
     private TextField searchBar;
 
@@ -33,11 +33,23 @@ public class ToursController implements Initializable {
     @FXML
     private ListView<DayTour> resultList;
 
+    @FXML
+    private Label fxUserName;
+
+    @FXML
+    private Label loggedIn;
+
+    @FXML
+    private Button loginButton;
+
     private static final String OK = "Done";
 
+    private TourDB tours;
     private BookingController bc;
+    private UserController uc;
     private static final ButtonType BTYPE = new ButtonType(OK,
             ButtonBar.ButtonData.OK_DONE);
+    private User loggedInUser;
 
     @FXML
     public void onSearchButtonClick() {
@@ -75,8 +87,23 @@ public class ToursController implements Initializable {
     }
 
     @FXML
-    public void onLoginInClick() throws IOException {
+    public void onLoginInClick() throws SQLException, ParseException {
+        if (loginButton.getText().equals("Log In")) {
+            User user = uc.login();
 
+            if (user != null) {
+                fxUserName.setText(user.getName());
+                loggedIn.setVisible(true);
+                loginButton.setText("Log Out");
+                loggedInUser = user;
+            }
+        }
+        else {
+            fxUserName.setText("");
+            loggedIn.setVisible(false);
+            loginButton.setText("Log In");
+            loggedInUser = null;
+        }
     }
 
     public DayTour[] search(String searchQuery) {
@@ -97,14 +124,21 @@ public class ToursController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             tours = new TourDB();
-            bc = loadDialog();
+            bc = loadDialogBooking();
+            uc = loadDialogUser();
         } catch (SQLException | ClassNotFoundException | IOException e) {
             e.printStackTrace();
         }
     }
 
-    private BookingController loadDialog() throws java.io.IOException {
+    private BookingController loadDialogBooking() throws java.io.IOException {
         FXMLLoader dLoader = new FXMLLoader(getClass().getResource("booking-view.fxml"));
+        dLoader.load();
+        return dLoader.getController();
+    }
+
+    private UserController loadDialogUser() throws java.io.IOException {
+        FXMLLoader dLoader = new FXMLLoader(getClass().getResource("log-in-page.fxml"));
         dLoader.load();
         return dLoader.getController();
     }
