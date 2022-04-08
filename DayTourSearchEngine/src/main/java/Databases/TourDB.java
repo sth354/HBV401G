@@ -4,9 +4,11 @@ import Model.DayTour;
 
 import java.sql.*;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class TourDB {
     Connection conn;
@@ -23,8 +25,9 @@ public class TourDB {
         ResultSet rs = s.executeQuery(str);
 
         while (rs.next()) {
-            SimpleDateFormat f = new SimpleDateFormat("yyyy/MM/dd");
-            DayTour outD = new DayTour(rs.getString("name"),rs.getString("description"),f.parse(rs.getString("date")),rs.getInt("length"),rs.getInt("price"),rs.getFloat("averageRating"));
+            DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+            f = f.withLocale(Locale.ENGLISH);
+            DayTour outD = new DayTour(rs.getString("name"),rs.getString("description"),LocalDate.parse(rs.getString("date"),f),rs.getInt("length"),rs.getInt("price"),rs.getFloat("averageRating"));
             out.add(outD);
         }
 

@@ -4,6 +4,8 @@ import Databases.TourDB;
 import Model.DayTour;
 import Model.User;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -18,6 +20,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.ResourceBundle;
 
 public class ToursController implements Initializable {
@@ -51,7 +54,6 @@ public class ToursController implements Initializable {
             ButtonBar.ButtonData.OK_DONE);
     private User loggedInUser;
 
-    @FXML
     public void onSearchButtonClick() {
         DayTour[] searchResult = search(searchBar.getText());
         try {
@@ -70,14 +72,12 @@ public class ToursController implements Initializable {
         catch (Exception ignored) {}
     }
 
-    @FXML
     public void onEnterPress(KeyEvent keyEvent) {
         if (keyEvent.getCode().equals(KeyCode.ENTER)) {
             onSearchButtonClick();
         }
     }
 
-    @FXML
     public void onBuyButtonClick() {
        try {
            DayTour selectedTour = resultList.getSelectionModel().getSelectedItem();
@@ -86,7 +86,6 @@ public class ToursController implements Initializable {
        catch (NullPointerException ignored) {}
     }
 
-    @FXML
     public void onLoginInClick() throws SQLException, ParseException {
         if (loginButton.getText().equals("Log In")) {
             User user = uc.login();
@@ -104,6 +103,30 @@ public class ToursController implements Initializable {
             loginButton.setText("Log In");
             loggedInUser = null;
         }
+    }
+
+    public void sortByAZ() {
+        ObservableList<DayTour> list = resultList.getItems();
+        Comparator<DayTour> c = Comparator.comparing(DayTour::getName);
+        FXCollections.sort(list,c);
+        resultList.setItems(list);
+    }
+
+    public void sortByZA() {
+        ObservableList<DayTour> list = resultList.getItems();
+        Comparator<DayTour> c = Comparator.comparing(DayTour::getName);
+        c = c.reversed();
+        FXCollections.sort(list,c);
+        resultList.setItems(list);
+    }
+
+    public void sortByDate() {
+    }
+
+    public void sortByLength() {
+    }
+
+    public void sortByPrice() {
     }
 
     public DayTour[] search(String searchQuery) {

@@ -5,7 +5,9 @@ import Model.DayTour;
 import org.junit.*;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 import static org.junit.Assert.*;
 
@@ -19,21 +21,23 @@ public class searchForTourTest {
     }
     @Test
     public void testFindOne() throws ParseException {
-        SimpleDateFormat f = new SimpleDateFormat("yyyy/MM/dd");
-        DayTour tour = new DayTour("Tour1","tourtest",f.parse("2022/03/31"),120,5000, 0.0F);
+        DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        f = f.withLocale(Locale.ENGLISH);
+        DayTour tour = new DayTour("Tour1","tourtest", LocalDate.parse("2022/03/31",f),120,5000, 0.0F);
         String searchQuery = "Tour1";
         DayTour[] testSearch = tc.search(searchQuery);
         assertNotNull(testSearch);
-        assertTrue(tour.equals(testSearch[0]));
+        assertEquals(tour, testSearch[0]);
     }
     @Test
     public void testFindCaps() throws ParseException {
-        SimpleDateFormat f = new SimpleDateFormat("yyyy/MM/dd");
-        DayTour tour = new DayTour("Tour2","tourtest",f.parse("2022/04/01"),120,5000, 0.0F);
+        DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        f = f.withLocale(Locale.ENGLISH);
+        DayTour tour = new DayTour("Tour2","tourtest",LocalDate.parse("2022/04/01",f),120,5000, 0.0F);
         String searchQuery = "TOUR2";
         DayTour[] testSearch = tc.search(searchQuery);
         assertNotNull(testSearch);
-        assertTrue(tour.equals(testSearch[0]));
+        assertEquals(tour, testSearch[0]);
     }
     @Test
     public void testNotFind() {

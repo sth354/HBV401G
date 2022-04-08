@@ -1,19 +1,19 @@
 package Model;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class DayTour {
     private String name;
     private String description;
-    private Date date;
+    private LocalDate date;
     private int length;
     //private Tag[] tags;
     private int price;
     private float averageRating;
     //private User[] authUsers;
 
-    public DayTour(String name, String description, Date date, int length, /*Tag[] tags,*/ int price, float averageRating /*, User[] authUsers*/) {
+    public DayTour(String name, String description, LocalDate date, int length, /*Tag[] tags,*/ int price, float averageRating /*, User[] authUsers*/) {
         this.name = name;
         this.description = description;
         this.date = date;
@@ -40,11 +40,11 @@ public class DayTour {
         this.description = description;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -102,6 +102,6 @@ public class DayTour {
 
     @Override
     public String toString() {
-        return name + ", " + description;
+        return name + ", " + date.toString() + ", " + length + "min, " + price + "kr";
     }
 }
