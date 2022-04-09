@@ -2,6 +2,7 @@ package Controllers;
 
 import Databases.BookingDB;
 import Model.DayTour;
+import Model.User;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -10,6 +11,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class BookingController implements Initializable {
@@ -18,8 +21,6 @@ public class BookingController implements Initializable {
     @FXML
     private AnchorPane fxDialog;
     @FXML
-    private TextField fxCard;
-    @FXML
     private Label fxName;
     @FXML
     private Label fxDate;
@@ -27,6 +28,8 @@ public class BookingController implements Initializable {
     private Label fxLength;
     @FXML
     private Label fxPrice;
+    @FXML
+    private Label fxDescription;
 
     private static final String OK = "Buy Tour";
     private static final String CANCEL = "Cancel";
@@ -37,18 +40,28 @@ public class BookingController implements Initializable {
     private static final ButtonType HTYPE = new ButtonType(CANCEL,
             ButtonBar.ButtonData.CANCEL_CLOSE);
 
-    public void makeBooking(DayTour dayTour) {
+    public void makeBooking(DayTour dayTour, User user) {
         fxName.setText(dayTour.getName());
         fxDate.setText(dayTour.getDate().toString());
-        fxLength.setText(dayTour.getLength()+"");
-        fxPrice.setText(dayTour.getPrice()+"");
+        fxLength.setText(dayTour.getLength()+"min");
+        fxPrice.setText(dayTour.getPrice()+"kr");
+        fxDescription.setText(dayTour.getDescription());
 
-        dialogBooking.showAndWait();
+        Optional<ButtonType> out = dialogBooking.showAndWait();
+        if (out.isPresent() && (out.get() // buy
+                .getButtonData() == ButtonBar.ButtonData.OK_DONE)) {
+            bookings.insert(dayTour,user);
+        }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         dialogBooking = createDialog();
+        try {
+            bookings = new BookingDB();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private Dialog<ButtonType> createDialog() {
@@ -63,9 +76,7 @@ public class BookingController implements Initializable {
 
         head(d);
 
-        ButtonType ok = doneCancelButtons(d);
-
-        buyRule(p, ok);
+        doneCancelButtons(d);
 
         return d;
     }
@@ -75,15 +86,8 @@ public class BookingController implements Initializable {
         d.setTitle("Booking");
     }
 
-    private ButtonType doneCancelButtons(Dialog<ButtonType> d) {
+    private void doneCancelButtons(Dialog<ButtonType> d) {
         d.getDialogPane().getButtonTypes().add(BTYPE);
         d.getDialogPane().getButtonTypes().add(HTYPE);
-        return BTYPE;
-    }
-
-    private void buyRule(DialogPane p, ButtonType ok) {
-        final Node buyButton = p.lookupButton(ok);
-        buyButton.disableProperty()
-                .bind(fxCard.textProperty().isEmpty());
     }
 }

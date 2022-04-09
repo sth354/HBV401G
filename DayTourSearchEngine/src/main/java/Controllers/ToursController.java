@@ -27,27 +27,24 @@ import java.util.ResourceBundle;
 public class ToursController implements Initializable {
     @FXML
     private TextField searchBar;
-
     @FXML
     private Label searchLabel;
-
     @FXML
     private AnchorPane fxDialog;
-
     @FXML
     private ListView<DayTour> resultList;
-
     @FXML
     private Label fxUserName;
-
     @FXML
     private Label loggedIn;
-
+    @FXML
+    private Label buyMessage;
     @FXML
     private Button loginButton;
-
     @FXML
     private Button editButton;
+    @FXML
+    private Button buyTour;
 
     private static final String OK = "Done";
 
@@ -85,7 +82,7 @@ public class ToursController implements Initializable {
     public void onBuyButtonClick() {
        try {
            DayTour selectedTour = resultList.getSelectionModel().getSelectedItem();
-           bc.makeBooking(selectedTour);
+           bc.makeBooking(selectedTour,loggedInUser);
        }
        catch (NullPointerException ignored) {}
     }
@@ -99,12 +96,16 @@ public class ToursController implements Initializable {
                 loggedIn.setVisible(true);
                 loginButton.setText("Log Out");
                 loggedInUser = user;
+                buyMessage.setVisible(false);
+                buyTour.setDisable(false);
                 if (loggedInUser.isModerator()) {
                     editButton.setVisible(true);
                 }
             }
         }
         else {
+            buyMessage.setVisible(true);
+            buyTour.setDisable(true);
             fxUserName.setText("");
             loggedIn.setVisible(false);
             loginButton.setText("Log In");
