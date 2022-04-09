@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
@@ -31,7 +32,7 @@ public class ToursController implements Initializable {
     private Label searchLabel;
 
     @FXML
-    private Pane fxDialog;
+    private AnchorPane fxDialog;
 
     @FXML
     private ListView<DayTour> resultList;
@@ -44,6 +45,9 @@ public class ToursController implements Initializable {
 
     @FXML
     private Button loginButton;
+
+    @FXML
+    private Button editButton;
 
     private static final String OK = "Done";
 
@@ -95,6 +99,9 @@ public class ToursController implements Initializable {
                 loggedIn.setVisible(true);
                 loginButton.setText("Log Out");
                 loggedInUser = user;
+                if (loggedInUser.isModerator()) {
+                    editButton.setVisible(true);
+                }
             }
         }
         else {
@@ -102,7 +109,16 @@ public class ToursController implements Initializable {
             loggedIn.setVisible(false);
             loginButton.setText("Log In");
             loggedInUser = null;
+            editButton.setVisible(false);
         }
+    }
+
+    public void onViewButtonClick() {
+        DayTour selectedTour = resultList.getSelectionModel().getSelectedItem();
+    }
+
+    public void onEditButtonClick() {
+
     }
 
     public void sortByAZ() {
@@ -121,20 +137,27 @@ public class ToursController implements Initializable {
     }
 
     public void sortByDate() {
+        ObservableList<DayTour> list = resultList.getItems();
+        Comparator<DayTour> c = Comparator.comparing(DayTour::getDate);
+        FXCollections.sort(list,c);
+        resultList.setItems(list);
     }
 
     public void sortByLength() {
+        ObservableList<DayTour> list = resultList.getItems();
+        Comparator<DayTour> c = Comparator.comparing(DayTour::getLength);
+        FXCollections.sort(list,c);
+        resultList.setItems(list);
     }
 
     public void sortByPrice() {
+        ObservableList<DayTour> list = resultList.getItems();
+        Comparator<DayTour> c = Comparator.comparing(DayTour::getPrice);
+        FXCollections.sort(list,c);
+        resultList.setItems(list);
     }
 
     public DayTour[] search(String searchQuery) {
-        if (searchQuery.equals("")) {
-            searchLabel.setText("You have to type something...");
-            searchLabel.setTextFill(Color.RED);
-            return null;
-        }
         try {
             return tours.select(searchQuery);
         }

@@ -9,16 +9,16 @@
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="481.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ToursController">
    <children>
-      <Pane fx:id="fxDialog" prefHeight="400.0" prefWidth="481.0" visible="false">
+      <AnchorPane fx:id="fxDialog" prefHeight="400.0" prefWidth="481.0" visible="false">
          <children>
-            <Button fx:id="buyTour" layoutX="381.0" layoutY="23.0" mnemonicParsing="false" onAction="#onBuyButtonClick" prefHeight="25.0" prefWidth="85.0" text="Buy" />
-            <ListView fx:id="resultList" layoutY="60.0" prefHeight="340.0" prefWidth="374.0" />
-            <MenuBar layoutX="379.0" layoutY="65.0" prefHeight="25.0" prefWidth="85.0">
+            <Button fx:id="buyTour" layoutX="385.0" layoutY="348.0" mnemonicParsing="false" onAction="#onBuyButtonClick" prefHeight="25.0" prefWidth="79.0" text="Buy" />
+            <Button layoutX="387.0" layoutY="62.0" mnemonicParsing="false" onAction="#onViewButtonClick" prefHeight="25.0" prefWidth="71.0" text="View tour" />
+            <ListView fx:id="resultList" prefHeight="400.0" prefWidth="374.0" />
+            <MenuBar layoutX="382.0" layoutY="14.0" prefHeight="25.0" prefWidth="79.0">
               <menus>
                 <Menu mnemonicParsing="false" text="Sort by:">
                   <items>
@@ -35,9 +35,14 @@
                 </Menu>
               </menus>
             </MenuBar>
+            <Button  fx:id="editButton"  layoutX="386.0" layoutY="133.0" mnemonicParsing="false" onAction="#onEditButtonClick" prefHeight="25.0" prefWidth="71.0" text="Edit tour" visible="false">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
          </children>
-      </Pane>
-      <TextField fx:id="searchBar" layoutX="70.0" layoutY="173.0" maxHeight="-Infinity" maxWidth="-Infinity" onKeyPressed="#onEnterPress" prefHeight="25.0" prefWidth="212.0" />
+      </AnchorPane>
+      <TextField fx:id="searchBar" layoutX="70.0" layoutY="173.0" maxHeight="-Infinity" maxWidth="-Infinity" onKeyPressed="#onEnterPress" prefHeight="25.0" prefWidth="212.0" promptText="Leave empty to get all tours" />
       <Button layoutX="340.0" layoutY="173.0" mnemonicParsing="false" onAction="#onSearchButtonClick" text="Search" />
       <Label fx:id="searchLabel" layoutX="70.0" layoutY="144.0" prefHeight="17.0" prefWidth="212.0" />
       <Button fx:id="loginButton" layoutX="341.0" layoutY="89.0" mnemonicParsing="false" onAction="#onLoginInClick" text="Log In" />
