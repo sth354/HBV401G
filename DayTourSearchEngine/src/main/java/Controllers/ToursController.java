@@ -45,6 +45,8 @@ public class ToursController implements Initializable {
     private Button editButton;
     @FXML
     private Button buyTour;
+    @FXML
+    public Button getBookingsButton;
 
     private static final String OK = "Done";
 
@@ -84,7 +86,7 @@ public class ToursController implements Initializable {
            DayTour selectedTour = resultList.getSelectionModel().getSelectedItem();
            bc.makeBooking(selectedTour,loggedInUser);
        }
-       catch (NullPointerException ignored) {}
+       catch (NullPointerException | SQLException ignored) {}
     }
 
     public void onLoginInClick() throws SQLException, ParseException {
@@ -92,7 +94,7 @@ public class ToursController implements Initializable {
             User user = uc.login();
 
             if (user != null) {
-                fxUserName.setText(user.getName());
+                fxUserName.setText(user.toString());
                 loggedIn.setVisible(true);
                 loginButton.setText("Log Out");
                 loggedInUser = user;
@@ -100,6 +102,7 @@ public class ToursController implements Initializable {
                 buyTour.setDisable(false);
                 if (loggedInUser.isModerator()) {
                     editButton.setVisible(true);
+                    getBookingsButton.setVisible(true);
                 }
             }
         }
@@ -111,15 +114,21 @@ public class ToursController implements Initializable {
             loginButton.setText("Log In");
             loggedInUser = null;
             editButton.setVisible(false);
+            getBookingsButton.setVisible(false);
         }
     }
 
     public void onViewButtonClick() {
         DayTour selectedTour = resultList.getSelectionModel().getSelectedItem();
+        bc.viewTour(selectedTour);
     }
 
     public void onEditButtonClick() {
 
+    }
+
+    public void getAllBookings() throws SQLException, ParseException {
+        bc.viewBookings();
     }
 
     public void sortByAZ() {

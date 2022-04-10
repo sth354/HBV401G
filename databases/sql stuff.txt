@@ -17,3 +17,11 @@ CREATE TABLE UsersDB (
 );
 
 INSERT INTO UsersDB VALUES ("name","email","pw",0);
+
+CREATE TABLE BookingsDB (
+ daytour VARCHAR(15),
+ userEmail VARCHAR(25),
+ userPassword VARCHAR(20)
+);
+
+INSERT INTO BookingsDB VALUES ("name","email","pw");

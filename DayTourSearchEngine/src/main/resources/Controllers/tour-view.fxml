@@ -53,5 +53,10 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
+      <Button fx:id="getBookingsButton" layoutX="340.0" layoutY="290.0" mnemonicParsing="false" onAction="#getAllBookings" text="Get all bookings" visible="false">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

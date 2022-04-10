@@ -11,14 +11,14 @@ import java.util.List;
 import java.util.Locale;
 
 public class TourDB {
-    Connection conn;
+    private final Connection conn;
 
     public TourDB() throws SQLException, ClassNotFoundException {
         conn = DriverManager.getConnection("jdbc:sqlite:..\\databases\\tours.db");
     }
 
     public DayTour[] select(String searchQuery) throws SQLException, ParseException {
-        List<DayTour> out = new ArrayList<DayTour>();
+        List<DayTour> out = new ArrayList<>();
 
         Statement s = conn.createStatement();
         String str = "SELECT * FROM DayToursDB WHERE name LIKE \"%"+searchQuery+"%\";";
