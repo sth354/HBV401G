@@ -45,6 +45,8 @@ public class ToursController implements Initializable {
     private Button buyTour;
     @FXML
     public Button getBookingsButton;
+    @FXML
+    public Button searchButton;
 
     private static final String OK = "Done";
 
@@ -186,6 +188,7 @@ public class ToursController implements Initializable {
             tours = new TourDB();
             bc = loadDialogBooking();
             uc = loadDialogUser();
+            searchButton.requestFocus();
         } catch (SQLException | ClassNotFoundException | IOException e) {
             e.printStackTrace();
         }
