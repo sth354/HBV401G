@@ -35,11 +35,6 @@
                 </Menu>
               </menus>
             </MenuBar>
-            <Button fx:id="editButton" layoutX="386.0" layoutY="133.0" mnemonicParsing="false" onAction="#onEditButtonClick" prefHeight="25.0" prefWidth="71.0" text="Edit tour" visible="false">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Button>
             <Label fx:id="buyMessage" alignment="TOP_LEFT" layoutX="387.0" layoutY="285.0" prefHeight="55.0" prefWidth="79.0" text="You have to be logged in to buy" textFill="RED" wrapText="true" />
          </children>
       </AnchorPane>

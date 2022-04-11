@@ -44,7 +44,7 @@ public class UserController implements Initializable {
     }
 
     public void register() {
-
+        
     }
 
     public User login() throws SQLException, ParseException {

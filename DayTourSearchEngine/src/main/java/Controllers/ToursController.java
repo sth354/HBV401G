@@ -50,7 +50,7 @@ public class ToursController implements Initializable {
 
     private static final String OK = "Done";
 
-    private TourDB tours;
+    private static TourDB tours;
     private BookingController bc;
     private UserController uc;
     private static final ButtonType BTYPE = new ButtonType(OK,
@@ -58,7 +58,7 @@ public class ToursController implements Initializable {
     private User loggedInUser;
 
     public void onSearchButtonClick() {
-        DayTour[] searchResult = search(searchBar.getText());
+        DayTour[] searchResult = search(searchBar.getText(),null);
         try {
             if (searchResult.length == 0) {
                 searchLabel.setText("Can't find tour");
@@ -123,10 +123,6 @@ public class ToursController implements Initializable {
         bc.viewTour(selectedTour);
     }
 
-    public void onEditButtonClick() {
-
-    }
-
     public void getAllBookings() throws SQLException, ParseException {
         bc.viewBookings();
     }
@@ -167,9 +163,14 @@ public class ToursController implements Initializable {
         resultList.setItems(list);
     }
 
-    public DayTour[] search(String searchQuery) {
+    public static DayTour[] search(String searchQuery, TourDB tours1) {
         try {
-            return tours.select(searchQuery);
+            if (tours1 == null) {
+                return tours.select(searchQuery);
+            }
+            else {
+                return tours1.select(searchQuery);
+            }
         }
         catch (Exception e) {
             return null;
