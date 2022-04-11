@@ -23,4 +23,11 @@ public class UserDB {
         }
         return null;
     }
+
+    public boolean checkName(String name) throws SQLException {
+        Statement s = conn.createStatement();
+        String str = "SELECT * FROM UsersDB WHERE name = \""+name+"\";";
+        ResultSet rs = s.executeQuery(str);
+        return rs.next();
+    }
 }

@@ -42,8 +42,6 @@ public class ToursController implements Initializable {
     @FXML
     private Button loginButton;
     @FXML
-    private Button editButton;
-    @FXML
     private Button buyTour;
     @FXML
     public Button getBookingsButton;
@@ -101,9 +99,11 @@ public class ToursController implements Initializable {
                 buyMessage.setVisible(false);
                 buyTour.setDisable(false);
                 if (loggedInUser.isModerator()) {
-                    editButton.setVisible(true);
                     getBookingsButton.setVisible(true);
                 }
+            }
+            else {
+                throw new SQLException();
             }
         }
         else {
@@ -113,9 +113,12 @@ public class ToursController implements Initializable {
             loggedIn.setVisible(false);
             loginButton.setText("Log In");
             loggedInUser = null;
-            editButton.setVisible(false);
             getBookingsButton.setVisible(false);
         }
+    }
+
+    public void onRegisterClick(ActionEvent actionEvent) throws SQLException, ParseException {
+        User user = uc.register();
     }
 
     public void onViewButtonClick() {
