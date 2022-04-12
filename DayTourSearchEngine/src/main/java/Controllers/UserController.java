@@ -16,6 +16,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class UserController implements Initializable {
+    //interface variables
     @FXML
     private AnchorPane loginPane;
     @FXML
@@ -35,6 +36,7 @@ public class UserController implements Initializable {
     @FXML
     private Label error1;
 
+    //constants
     private static final String OK = "Login";
     private static final String CANCEL = "Cancel";
     private Dialog<ButtonType> dialog;
@@ -43,8 +45,14 @@ public class UserController implements Initializable {
     private static final ButtonType HTYPE = new ButtonType(CANCEL,
             ButtonBar.ButtonData.CANCEL_CLOSE);
 
+    //data variable
     private UserDB users;
 
+    /**
+    * Opens a dialog to register a new user
+    * when the "Register" button is pressed in
+    * the main interface.
+    **/
     public User register() throws SQLException {
         dialog = createDialogRegister();
         Optional<ButtonType> out = dialog.showAndWait();
@@ -67,6 +75,11 @@ public class UserController implements Initializable {
         return null;
     }
 
+    /**
+     * Opens a dialog to log in a user
+     * when the "Log In" button is pressed in
+     * the main interface.
+     **/
     public User login() throws SQLException {
         dialog = createDialogLogin();
         Optional<ButtonType> out = dialog.showAndWait();
@@ -97,6 +110,13 @@ public class UserController implements Initializable {
         }
     }
 
+    /**
+     * @param name is the username
+     * @param email is the user's email
+     * @param password is the user's password
+     * @return Returns true if user is valid, else false.
+     * @throws SQLException
+     */
     private boolean checkUser(String name, String email,String password) throws SQLException {
         Pattern pattern = Pattern.compile(".+@.+\\.[a-z]+");
         Matcher m = pattern.matcher(email);
@@ -115,6 +135,9 @@ public class UserController implements Initializable {
         return false;
     }
 
+    /**
+    * Creates the buttons for the log in dialog.
+    **/
     private Dialog<ButtonType> createDialogLogin() {
         DialogPane p = new DialogPane();
         loginPane.setVisible(true);
@@ -126,7 +149,7 @@ public class UserController implements Initializable {
 
         d.setDialogPane(p);
 
-        head(d);
+        loginHead(d);
 
         ButtonType ok = doneCancelButtons(d);
 
@@ -135,6 +158,9 @@ public class UserController implements Initializable {
         return d;
     }
 
+    /**
+    *  Creates the buttons for the register dialog.
+    **/
     private Dialog<ButtonType> createDialogRegister() {
         DialogPane p = new DialogPane();
         loginPane.setVisible(false);
@@ -146,7 +172,7 @@ public class UserController implements Initializable {
 
         d.setDialogPane(p);
 
-        head(d);
+        registerHead(d);
 
         ButtonType ok = doneCancelButtons(d);
 
@@ -155,17 +181,40 @@ public class UserController implements Initializable {
         return d;
     }
 
-    private void head(Dialog<ButtonType> d) {
+    /**
+     * Sets the head and title for dialog d
+     * @param d is a dialog
+     * @return void
+     **/
+    private void loginHead(Dialog<ButtonType> d) {
         d.setHeaderText("Login:");
         d.setTitle("Login");
     }
 
+    /**
+     * Sets the head and title for dialog d
+     * @param d is a dialog
+     * @return void
+     **/
+    private void registerHead(Dialog<ButtonType> d) {
+        d.setHeaderText("Register:");
+        d.setTitle("Register");
+    }
+
+    /**
+     * Inserts a a Done/Cancel button to dialog d
+     * @param d is the dialog.
+     * @return ButtonType Done/Cancel button
+     **/
     private ButtonType doneCancelButtons(Dialog<ButtonType> d) {
         d.getDialogPane().getButtonTypes().add(BTYPE);
         d.getDialogPane().getButtonTypes().add(HTYPE);
         return BTYPE;
     }
 
+    /**
+     * Done button is inactive if the proper fields are empty
+     **/
     private void registerRule(DialogPane p, ButtonType ok) {
         final Node loginButton = p.lookupButton(ok);
         loginButton.disableProperty()
@@ -174,6 +223,9 @@ public class UserController implements Initializable {
                         .or(registerPw.textProperty().isEmpty())));
     }
 
+    /**
+     * Done button is inactive if the proper fields are empty
+     **/
     private void loginRule(DialogPane p, ButtonType ok) {
         final Node loginButton = p.lookupButton(ok);
         loginButton.disableProperty()
