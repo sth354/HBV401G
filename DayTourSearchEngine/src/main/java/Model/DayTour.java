@@ -1,96 +1,47 @@
 package Model;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
 public class DayTour {
-    private String name;
-    private String description;
-    private LocalDate date;
-    private int length;
-    //private Tag[] tags;
-    private int price;
-    private float averageRating;
-    //private User[] authUsers;
+    private final String name;
+    private final String description;
+    private final LocalDate date;
+    private final int length;
+    private final int price;
+    private final float averageRating;
 
-    public DayTour(String name, String description, LocalDate date, int length, /*Tag[] tags,*/ int price, float averageRating /*, User[] authUsers*/) {
+    public DayTour(String name, String description, LocalDate date, int length, int price, float averageRating) {
         this.name = name;
         this.description = description;
         this.date = date;
         this.length = length;
-        //this.tags = tags;
         this.price = price;
         this.averageRating = averageRating;
-        //this.authUsers = authUsers;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
     public int getLength() {
         return length;
     }
-
-    public void setLength(int length) {
-        this.length = length;
-    }
-
-    /*
-    public Tag[] getTags() {
-        return tags;
-    }
-
-    public void setTags(Tag[] tags) {
-        this.tags = tags;
-    }
-    */
 
     public int getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
     public float getAverageRating() {
         return averageRating;
     }
-
-    public void setAverageRating(float averageRating) {
-        this.averageRating = averageRating;
-    }
-
-    /*
-    public User[] getAuthUsers() {
-        return authUsers;
-    }
-
-    public void setAuthUsers(User[] authUsers) {
-        this.authUsers = authUsers;
-    }
-    */
 
     @Override
     public boolean equals(Object o) {
