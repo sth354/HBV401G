@@ -27,11 +27,11 @@ public class ToursController implements Initializable {
     @FXML
     private TextField searchBar;
     @FXML
-    private Label searchLabel;
-    @FXML
     private AnchorPane fxDialog;
     @FXML
     private ListView<DayTour> resultList;
+    @FXML
+    private Label searchLabel;
     @FXML
     private Label fxUserName;
     @FXML
