@@ -50,14 +50,20 @@ public class BookingDB {
     }
 
     public void insert(DayTour dayTour, User user) throws SQLException {
-        Statement s = conn.createStatement();
-        String str = "INSERT INTO BookingsDB VALUES (\""+dayTour.getName()+"\",\""+user.getEmailAddress()+"\",\""+user.getPassword()+"\");";
-        s.executeUpdate(str);
+        String str = "INSERT INTO BookingsDB VALUES (?,?,?);";
+        PreparedStatement ps = conn.prepareStatement(str);
+        ps.setString(1,dayTour.getName());
+        ps.setString(2,user.getEmailAddress());
+        ps.setString(3,user.getPassword());
+        ps.executeUpdate();
     }
 
     public void delete(DayTour dayTour, User user) throws SQLException {
-        Statement s = conn.createStatement();
-        String str = "DELETE FROM BookingsDB WHERE daytour = \""+dayTour.getName()+"\" AND userEmail = \""+user.getEmailAddress()+"\" AND userPassword = \""+user.getPassword()+"\");";
-        s.executeUpdate(str);
+        String str = "DELETE FROM BookingsDB WHERE daytour = ? AND userEmail = ? AND userPassword = ?);";
+        PreparedStatement ps = conn.prepareStatement(str);
+        ps.setString(1,dayTour.getName());
+        ps.setString(2,user.getEmailAddress());
+        ps.setString(3,user.getPassword());
+        ps.executeUpdate(str);
     }
 }
