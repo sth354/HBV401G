@@ -92,7 +92,7 @@ public class ToursController implements Initializable {
        catch (NullPointerException | SQLException ignored) {}
     }
 
-    public void onLoginInClick() throws SQLException, ParseException {
+    public void onLoginInClick() throws SQLException {
         if (loginButton.getText().equals("Log In")) {
             User user = uc.login();
 
@@ -122,7 +122,7 @@ public class ToursController implements Initializable {
         }
     }
 
-    public void onRegisterClick() throws SQLException, ParseException {
+    public void onRegisterClick() throws SQLException {
         User user = uc.register();
 
         if (user != null) {

@@ -10,7 +10,6 @@ import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
@@ -46,7 +45,7 @@ public class UserController implements Initializable {
 
     private UserDB users;
 
-    public User register() throws SQLException, ParseException {
+    public User register() throws SQLException {
         dialog = createDialogRegister();
         Optional<ButtonType> out = dialog.showAndWait();
 
@@ -68,7 +67,7 @@ public class UserController implements Initializable {
         return null;
     }
 
-    public User login() throws SQLException, ParseException {
+    public User login() throws SQLException {
         dialog = createDialogLogin();
         Optional<ButtonType> out = dialog.showAndWait();
         if (out.isPresent() && (out.get() //login
@@ -98,7 +97,7 @@ public class UserController implements Initializable {
         }
     }
 
-    private boolean checkUser(String name, String email,String password) throws SQLException, ParseException {
+    private boolean checkUser(String name, String email,String password) throws SQLException {
         Pattern pattern = Pattern.compile(".+@.+\\.[a-z]+");
         Matcher m = pattern.matcher(email);
         User user = users.select(email, password);
