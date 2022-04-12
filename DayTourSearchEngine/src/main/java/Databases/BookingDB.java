@@ -36,9 +36,28 @@ public class BookingDB {
         return list;
     }
 
+    public List<DayTour> selectByUser(User user) throws SQLException, ParseException {
+        List<DayTour> list = new ArrayList<>();
+        Statement s = conn.createStatement();
+        String str = "SELECT * FROM BookingsDB WHERE userEmail = \""+user.getEmailAddress()+"\" AND userPassword = \""+user.getPassword()+"\";";
+        ResultSet rs = s.executeQuery(str);
+
+        while (rs.next()) {
+            DayTour[] dayTour = tours.select(rs.getString("daytour"));
+            list.add(dayTour[0]);
+        }
+        return list;
+    }
+
     public void insert(DayTour dayTour, User user) throws SQLException {
         Statement s = conn.createStatement();
-        String str = "INSERT INTO BookingsDB VALUES (\""+dayTour.getName()+"\",\""+user.getName()+"\",\""+user.getPassword()+"\");";
+        String str = "INSERT INTO BookingsDB VALUES (\""+dayTour.getName()+"\",\""+user.getEmailAddress()+"\",\""+user.getPassword()+"\");";
+        s.executeUpdate(str);
+    }
+
+    public void delete(DayTour dayTour, User user) throws SQLException {
+        Statement s = conn.createStatement();
+        String str = "DELETE FROM BookingsDB WHERE daytour = \""+dayTour.getName()+"\" AND userEmail = \""+user.getEmailAddress()+"\" AND userPassword = \""+user.getPassword()+"\");";
         s.executeUpdate(str);
     }
 }

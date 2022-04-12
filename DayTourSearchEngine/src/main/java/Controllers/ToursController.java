@@ -44,9 +44,13 @@ public class ToursController implements Initializable {
     @FXML
     private Button buyTour;
     @FXML
-    public Button getBookingsButton;
+    private Button getBookingsButton;
     @FXML
-    public Button searchButton;
+    private Button searchButton;
+    @FXML
+    private Button registerButton;
+    @FXML
+    private Button getMyBookingsButton;
 
     private static final String OK = "Done";
 
@@ -100,12 +104,10 @@ public class ToursController implements Initializable {
                 loggedInUser = user;
                 buyMessage.setVisible(false);
                 buyTour.setDisable(false);
+                getMyBookingsButton.setDisable(false);
                 if (loggedInUser.isModerator()) {
                     getBookingsButton.setVisible(true);
                 }
-            }
-            else {
-                throw new SQLException();
             }
         }
         else {
@@ -113,23 +115,45 @@ public class ToursController implements Initializable {
             buyTour.setDisable(true);
             fxUserName.setText("");
             loggedIn.setVisible(false);
+            registerButton.setVisible(true);
+            getMyBookingsButton.setDisable(true);
             loginButton.setText("Log In");
             loggedInUser = null;
             getBookingsButton.setVisible(false);
         }
     }
 
-    public void onRegisterClick(ActionEvent actionEvent) throws SQLException, ParseException {
+    public void onRegisterClick() throws SQLException, ParseException {
         User user = uc.register();
+
+        if (user != null) {
+            fxUserName.setText(user.toString());
+            loggedIn.setVisible(true);
+            loginButton.setText("Log Out");
+            loggedInUser = user;
+            buyMessage.setVisible(false);
+            registerButton.setVisible(false);
+            buyTour.setDisable(false);
+            if (loggedInUser.isModerator()) {
+                getBookingsButton.setVisible(true);
+            }
+        }
     }
 
     public void onViewButtonClick() {
-        DayTour selectedTour = resultList.getSelectionModel().getSelectedItem();
-        bc.viewTour(selectedTour);
+        try {
+            DayTour selectedTour = resultList.getSelectionModel().getSelectedItem();
+            bc.viewTour(selectedTour);
+        }
+        catch (NullPointerException ignored) {}
     }
 
     public void getAllBookings() throws SQLException, ParseException {
-        bc.viewBookings();
+        bc.viewBookings(true,null);
+    }
+
+    public void getMyBookings() throws SQLException, ParseException {
+        bc.viewBookings(false,loggedInUser);
     }
 
     public void sortByAZ() {

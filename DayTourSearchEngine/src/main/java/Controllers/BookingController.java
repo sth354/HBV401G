@@ -39,14 +39,19 @@ public class BookingController implements Initializable {
     @FXML
     private Label fxDescription;
     @FXML
+    private Label fxUsers;
+    @FXML
     private ListView<DayTour> listTours;
     @FXML
     private ListView<User> listUsers;
+    @FXML
+    private Button fxRemove;
 
     private static final String BUY = "Buy Tour";
     private static final String OK = "Done";
     private static final String CANCEL = "Cancel";
 
+    private User loggedInUser;
     private Dialog<ButtonType> dialogBooking;
     private static final ButtonType BTYPE = new ButtonType(BUY,
             ButtonBar.ButtonData.OK_DONE);
@@ -70,19 +75,42 @@ public class BookingController implements Initializable {
         }
     }
 
-    public void viewBookings() throws SQLException, ParseException {
+    public void viewBookings(boolean b,User user) throws SQLException, ParseException {
         dialogBooking = createDialog(1);
-        List<Pair<DayTour,User>> list = bookings.select();
-        List<DayTour> dayTours = new ArrayList<>();
-        List<User> users = new ArrayList<>();
+        loggedInUser = user;
+        if (b) {
+            List<Pair<DayTour, User>> list = bookings.select();
+            List<DayTour> dayTours = new ArrayList<>();
+            List<User> users = new ArrayList<>();
 
-        for (Pair<DayTour,User> p : list) {
+            for (Pair<DayTour, User> p : list) {
                 dayTours.add(p.getKey());
                 users.add(p.getValue());
+            }
+            listTours.setItems(FXCollections.observableList(dayTours));
+            listUsers.setItems(FXCollections.observableList(users));
+            dialogBooking.showAndWait();
         }
-        listTours.setItems(FXCollections.observableList(dayTours));
-        listUsers.setItems(FXCollections.observableList(users));
-        dialogBooking.showAndWait();
+        else {
+            List<DayTour> dayTours = bookings.selectByUser(user);
+            listUsers.setVisible(false);
+            fxUsers.setVisible(false);
+            fxRemove.setVisible(true);
+            listTours.setItems(FXCollections.observableList(dayTours));
+            dialogBooking.showAndWait();
+            listUsers.setVisible(true);
+            fxUsers.setVisible(true);
+            fxRemove.setVisible(false);
+        }
+    }
+
+    public void removeBooking() {
+        try {
+            DayTour selectedTour = listTours.getSelectionModel().getSelectedItem();
+            listTours.getItems().remove(selectedTour);
+            bookings.delete(selectedTour,loggedInUser);
+        }
+        catch (NullPointerException | SQLException ignored) {}
     }
 
     public void viewTour(DayTour dayTour) {

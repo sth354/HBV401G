@@ -54,5 +54,6 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
+      <Button fx:id="getMyBookingsButton" disable="true" layoutX="340.0" layoutY="253.0" mnemonicParsing="false" onAction="#getMyBookings" prefHeight="25.0" prefWidth="108.0" text="My bookings" />
    </children>
 </AnchorPane>
