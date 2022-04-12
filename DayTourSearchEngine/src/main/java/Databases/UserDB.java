@@ -3,7 +3,6 @@ package Databases;
 import Model.User;
 
 import java.sql.*;
-import java.text.ParseException;
 
 public class UserDB {
     private final Connection conn;
