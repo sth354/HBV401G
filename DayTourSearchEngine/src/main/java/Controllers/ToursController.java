@@ -23,6 +23,7 @@ import java.util.Comparator;
 import java.util.ResourceBundle;
 
 public class ToursController implements Initializable {
+    //interface variables
     @FXML
     private TextField searchBar;
     @FXML
@@ -50,15 +51,22 @@ public class ToursController implements Initializable {
     @FXML
     private Button getMyBookingsButton;
 
+    //constants
     private static final String OK = "Done";
     private static final ButtonType BTYPE = new ButtonType(OK,
             ButtonBar.ButtonData.OK_DONE);
 
+    //data variables
     private static TourDB tours;
     private BookingController bc;
     private UserController uc;
     private User loggedInUser;
 
+
+    /**
+     * Handler that sends the search result to the database
+     * and displays the result in a dialog.
+     */
     public void onSearchButtonClick() {
         DayTour[] searchResult = search(searchBar.getText(),null);
         try {
