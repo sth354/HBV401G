@@ -4,8 +4,6 @@ import Model.User;
 
 import java.sql.*;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class UserDB {
     private final Connection conn;
@@ -14,7 +12,7 @@ public class UserDB {
         conn = DriverManager.getConnection("jdbc:sqlite:..\\databases\\tours.db");
     }
 
-    public User select(String email, String password) throws SQLException, ParseException {
+    public User select(String email, String password) throws SQLException {
         Statement s = conn.createStatement();
         String str = "SELECT * FROM UsersDB WHERE email = \""+email+"\" AND password = \""+password+"\";";
         ResultSet rs = s.executeQuery(str);

@@ -4,7 +4,6 @@ import Model.DayTour;
 import Model.User;
 import javafx.util.Pair;
 
-
 import java.sql.*;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -12,9 +11,8 @@ import java.util.List;
 
 public class BookingDB {
     private final Connection conn;
-
-    private UserDB users;
-    private TourDB tours;
+    private final UserDB users;
+    private final TourDB tours;
 
     public BookingDB() throws SQLException, ClassNotFoundException {
         conn = DriverManager.getConnection("jdbc:sqlite:..\\databases\\tours.db");
@@ -36,7 +34,7 @@ public class BookingDB {
         return list;
     }
 
-    public List<DayTour> selectByUser(User user) throws SQLException, ParseException {
+    public List<DayTour> selectByUser(User user) throws SQLException {
         List<DayTour> list = new ArrayList<>();
         Statement s = conn.createStatement();
         String str = "SELECT * FROM BookingsDB WHERE userEmail = \""+user.getEmailAddress()+"\" AND userPassword = \""+user.getPassword()+"\";";

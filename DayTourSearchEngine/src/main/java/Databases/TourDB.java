@@ -3,7 +3,6 @@ package Databases;
 import Model.DayTour;
 
 import java.sql.*;
-import java.text.ParseException;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -17,7 +16,7 @@ public class TourDB {
         conn = DriverManager.getConnection("jdbc:sqlite:..\\databases\\tours.db");
     }
 
-    public DayTour[] select(String searchQuery) throws SQLException, ParseException {
+    public DayTour[] select(String searchQuery) throws SQLException {
         List<DayTour> out = new ArrayList<>();
 
         Statement s = conn.createStatement();
