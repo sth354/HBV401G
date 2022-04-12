@@ -237,6 +237,9 @@ public class ToursController implements Initializable {
 
     /**
      * Calls the select method in TourDB;
+     * @param searchQuery the search query from the user
+     * @param tours1 the tours database class
+     * @return the DayTour objects found with the search query
      */
     public static DayTour[] search(String searchQuery, TourDB tours1) {
         try {
@@ -313,6 +316,7 @@ public class ToursController implements Initializable {
 
     /**
      * Creates the done button for the search result dialog.
+     * @param d the dialog to add the button to
      */
     private void doneButton(Dialog<ButtonType> d) {
         d.getDialogPane().getButtonTypes().add(BTYPE);
