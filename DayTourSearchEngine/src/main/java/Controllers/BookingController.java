@@ -4,13 +4,10 @@ import Databases.BookingDB;
 import Model.DayTour;
 import Model.User;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.util.Pair;
 
 import java.net.URL;
@@ -22,8 +19,6 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class BookingController implements Initializable {
-    private BookingDB bookings;
-
     @FXML
     private AnchorPane fxDialog;
     @FXML
@@ -50,15 +45,16 @@ public class BookingController implements Initializable {
     private static final String BUY = "Buy Tour";
     private static final String OK = "Done";
     private static final String CANCEL = "Cancel";
-
-    private User loggedInUser;
-    private Dialog<ButtonType> dialogBooking;
     private static final ButtonType BTYPE = new ButtonType(BUY,
             ButtonBar.ButtonData.OK_DONE);
     private static final ButtonType BTYPE1 = new ButtonType(OK,
             ButtonBar.ButtonData.OK_DONE);
     private static final ButtonType HTYPE = new ButtonType(CANCEL,
             ButtonBar.ButtonData.CANCEL_CLOSE);
+
+    private BookingDB bookings;
+    private User loggedInUser;
+    private Dialog<ButtonType> dialogBooking;
 
     public void makeBooking(DayTour dayTour, User user) throws SQLException {
         dialogBooking = createDialog(0);

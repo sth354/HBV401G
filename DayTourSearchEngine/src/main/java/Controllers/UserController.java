@@ -19,32 +19,23 @@ import java.util.regex.Pattern;
 public class UserController implements Initializable {
     @FXML
     private AnchorPane loginPane;
-
     @FXML
     private AnchorPane registerPane;
-
     @FXML
     private TextField loginEmail;
-
     @FXML
     private TextField userName;
-
     @FXML
     private TextField registerEmail;
-
     @FXML
     private PasswordField loginPw;
-
     @FXML
     private PasswordField registerPw;
-
     @FXML
     private Label error;
-
     @FXML
     private Label error1;
 
-    private UserDB users;
     private static final String OK = "Login";
     private static final String CANCEL = "Cancel";
     private Dialog<ButtonType> dialog;
@@ -53,10 +44,7 @@ public class UserController implements Initializable {
     private static final ButtonType HTYPE = new ButtonType(CANCEL,
             ButtonBar.ButtonData.CANCEL_CLOSE);
 
-
-    public User[] getUsers() {
-        return null;
-    }
+    private UserDB users;
 
     public User register() throws SQLException, ParseException {
         dialog = createDialogRegister();
@@ -99,10 +87,6 @@ public class UserController implements Initializable {
         loginEmail.setText("");
         loginPw.setText("");
         return null;
-    }
-
-    public void grantAuth(User user) {
-
     }
 
     @Override

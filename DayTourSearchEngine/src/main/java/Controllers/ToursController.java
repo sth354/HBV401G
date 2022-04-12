@@ -5,7 +5,6 @@ import Model.DayTour;
 import Model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,7 +12,6 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
 import java.io.IOException;
@@ -53,17 +51,18 @@ public class ToursController implements Initializable {
     private Button getMyBookingsButton;
 
     private static final String OK = "Done";
+    private static final ButtonType BTYPE = new ButtonType(OK,
+            ButtonBar.ButtonData.OK_DONE);
 
     private static TourDB tours;
     private BookingController bc;
     private UserController uc;
-    private static final ButtonType BTYPE = new ButtonType(OK,
-            ButtonBar.ButtonData.OK_DONE);
     private User loggedInUser;
 
     public void onSearchButtonClick() {
         DayTour[] searchResult = search(searchBar.getText(),null);
         try {
+            assert searchResult != null;
             if (searchResult.length == 0) {
                 searchLabel.setText("Can't find tour");
                 searchLabel.setTextFill(Color.RED);
