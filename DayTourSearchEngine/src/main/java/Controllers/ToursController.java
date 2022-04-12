@@ -27,11 +27,11 @@ public class ToursController implements Initializable {
     @FXML
     private TextField searchBar;
     @FXML
-    private Label searchLabel;
-    @FXML
     private AnchorPane fxDialog;
     @FXML
     private ListView<DayTour> resultList;
+    @FXML
+    private Label searchLabel;
     @FXML
     private Label fxUserName;
     @FXML
@@ -62,7 +62,6 @@ public class ToursController implements Initializable {
     private UserController uc;
     private User loggedInUser;
 
-
     /**
      * Handler that sends the search result to the database
      * and displays the result in a dialog.
@@ -86,12 +85,19 @@ public class ToursController implements Initializable {
         catch (Exception ignored) {}
     }
 
+    /**
+     * Handler that calls the search handler if the user presses
+     * the ENTER key.
+     */
     public void onEnterPress(KeyEvent keyEvent) {
         if (keyEvent.getCode().equals(KeyCode.ENTER)) {
             onSearchButtonClick();
         }
     }
 
+    /**
+     * Handler that calls the makeBooking method in BookingController.
+     */
     public void onBuyButtonClick() {
        try {
            DayTour selectedTour = resultList.getSelectionModel().getSelectedItem();
@@ -100,6 +106,9 @@ public class ToursController implements Initializable {
        catch (NullPointerException | SQLException ignored) {}
     }
 
+    /**
+     * Handler that calls the login method in UserController.
+     */
     public void onLoginInClick() throws SQLException {
         if (loginButton.getText().equals("Log In")) {
             User user = uc.login();
@@ -130,6 +139,9 @@ public class ToursController implements Initializable {
         }
     }
 
+    /**
+     * Handler that calls the login method in UserController.
+     */
     public void onRegisterClick() throws SQLException {
         User user = uc.register();
 
@@ -147,6 +159,9 @@ public class ToursController implements Initializable {
         }
     }
 
+    /**
+     * Handler that calls the viewTour method in BookingController.
+     */
     public void onViewButtonClick() {
         try {
             DayTour selectedTour = resultList.getSelectionModel().getSelectedItem();
@@ -155,14 +170,23 @@ public class ToursController implements Initializable {
         catch (NullPointerException ignored) {}
     }
 
+    /**
+     * Handler that calls the viewBookings method in BookingController.
+     */
     public void getAllBookings() throws SQLException, ParseException {
         bc.viewBookings(true,null);
     }
 
+    /**
+     * Handler that calls the viewBookings method in BookingController.
+     */
     public void getMyBookings() throws SQLException, ParseException {
         bc.viewBookings(false,loggedInUser);
     }
 
+    /**
+     * Handler that sorts the search result in alphabetical order.
+     */
     public void sortByAZ() {
         ObservableList<DayTour> list = resultList.getItems();
         Comparator<DayTour> c = Comparator.comparing(DayTour::getName);
@@ -170,6 +194,9 @@ public class ToursController implements Initializable {
         resultList.setItems(list);
     }
 
+    /**
+     * Handler that sorts the search result in reverse-alphabetical order.
+     */
     public void sortByZA() {
         ObservableList<DayTour> list = resultList.getItems();
         Comparator<DayTour> c = Comparator.comparing(DayTour::getName);
@@ -178,6 +205,9 @@ public class ToursController implements Initializable {
         resultList.setItems(list);
     }
 
+    /**
+     * Handler that sorts the search result by date.
+     */
     public void sortByDate() {
         ObservableList<DayTour> list = resultList.getItems();
         Comparator<DayTour> c = Comparator.comparing(DayTour::getDate);
@@ -185,6 +215,9 @@ public class ToursController implements Initializable {
         resultList.setItems(list);
     }
 
+    /**
+     * Handler that sorts the search result by length.
+     */
     public void sortByLength() {
         ObservableList<DayTour> list = resultList.getItems();
         Comparator<DayTour> c = Comparator.comparing(DayTour::getLength);
@@ -192,6 +225,9 @@ public class ToursController implements Initializable {
         resultList.setItems(list);
     }
 
+    /**
+     * Handler that sorts the search result by price.
+     */
     public void sortByPrice() {
         ObservableList<DayTour> list = resultList.getItems();
         Comparator<DayTour> c = Comparator.comparing(DayTour::getPrice);
@@ -199,6 +235,12 @@ public class ToursController implements Initializable {
         resultList.setItems(list);
     }
 
+    /**
+     * Calls the select method in TourDB;
+     * @param searchQuery the search query from the user
+     * @param tours1 the tours database class
+     * @return the DayTour objects found with the search query
+     */
     public static DayTour[] search(String searchQuery, TourDB tours1) {
         try {
             if (tours1 == null) {
@@ -225,18 +267,27 @@ public class ToursController implements Initializable {
         }
     }
 
+    /**
+     * Loads the fxml file for the BookingController.
+     */
     private BookingController loadDialogBooking() throws java.io.IOException {
         FXMLLoader dLoader = new FXMLLoader(getClass().getResource("booking-view.fxml"));
         dLoader.load();
         return dLoader.getController();
     }
 
+    /**
+     * Loads the fxml file for the UserController.
+     */
     private UserController loadDialogUser() throws java.io.IOException {
         FXMLLoader dLoader = new FXMLLoader(getClass().getResource("log-in-page.fxml"));
         dLoader.load();
         return dLoader.getController();
     }
 
+    /**
+     * Creates the search result dialog.
+     */
     private Dialog<ButtonType> createDialog() {
         DialogPane p = new DialogPane();
 
@@ -255,11 +306,18 @@ public class ToursController implements Initializable {
         return d;
     }
 
+    /**
+     * Creates the header for the search result dialog.
+     */
     private void head(Dialog<ButtonType> d) {
         d.setHeaderText("Search result:");
         d.setTitle("Search");
     }
 
+    /**
+     * Creates the done button for the search result dialog.
+     * @param d the dialog to add the button to
+     */
     private void doneButton(Dialog<ButtonType> d) {
         d.getDialogPane().getButtonTypes().add(BTYPE);
     }
