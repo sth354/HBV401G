@@ -5,7 +5,6 @@ import Model.User;
 import javafx.util.Pair;
 
 import java.sql.*;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +22,7 @@ public class BookingDB {
         tours = new TourDB();
     }
 
-    public List<Pair<DayTour,User>> select() throws SQLException, ParseException {
+    public List<Pair<DayTour,User>> select() throws SQLException {
         List<Pair<DayTour,User>> list = new ArrayList<>();
         Statement s = conn.createStatement();
         String str = "SELECT * FROM BookingsDB;";
