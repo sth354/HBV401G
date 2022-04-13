@@ -39,8 +39,6 @@ public class BookingController implements Initializable {
     private ListView<DayTour> listTours;
     @FXML
     private ListView<User> listUsers;
-    @FXML
-    private Button fxRemove;
 
     private static final String BUY = "Buy Tour";
     private static final String OK = "Done";
@@ -91,22 +89,24 @@ public class BookingController implements Initializable {
             List<DayTour> dayTours = bookings.selectByUser(user);
             listUsers.setVisible(false);
             fxUsers.setVisible(false);
-            fxRemove.setVisible(true);
             listTours.setItems(FXCollections.observableList(dayTours));
+            List<User> userList = new ArrayList<>();
+            userList.add(user);
+            listUsers.setItems(FXCollections.observableList(userList));
             dialogBooking.showAndWait();
             listUsers.setVisible(true);
             fxUsers.setVisible(true);
-            fxRemove.setVisible(false);
         }
     }
 
     public void removeBooking() {
         try {
             DayTour selectedTour = listTours.getSelectionModel().getSelectedItem();
+            listUsers.getItems().remove(listTours.getSelectionModel().getSelectedIndex());
             listTours.getItems().remove(selectedTour);
             bookings.delete(selectedTour,loggedInUser);
         }
-        catch (NullPointerException | SQLException ignored) {}
+        catch (NullPointerException | SQLException | IndexOutOfBoundsException ignored) {}
     }
 
     public void viewTour(DayTour dayTour) {

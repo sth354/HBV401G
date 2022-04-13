@@ -6,14 +6,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="fxDialog" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="242.0" prefWidth="435.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.BookingController">
-   <AnchorPane fx:id="fxDialog1" prefHeight="242.0" prefWidth="435.0" visible="false">
+<AnchorPane fx:id="fxDialog" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="291.0" prefWidth="435.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.BookingController">
+   <AnchorPane fx:id="fxDialog1" prefHeight="291.0" prefWidth="435.0" visible="false">
       <children>
-         <ListView fx:id="listTours" layoutY="27.0" prefHeight="215.0" prefWidth="219.0" />
-         <ListView fx:id="listUsers" layoutX="223.0" layoutY="27.0" prefHeight="215.0" prefWidth="212.0" />
-         <Label fx:id="fxUsers" layoutX="315.0" layoutY="9.0" text="Users" />
-         <Label layoutX="87.0" layoutY="9.0" text="DayTours" />
-         <Button fx:id="fxRemove" layoutX="273.0" layoutY="93.0" mnemonicParsing="false" onAction="#removeBooking" text="Remove booking" visible="false" />
+         <ListView fx:id="listTours" layoutY="27.0" prefHeight="215.0" prefWidth="275.0" />
+         <ListView fx:id="listUsers" layoutX="286.0" layoutY="27.0" prefHeight="215.0" prefWidth="149.0" />
+         <Label fx:id="fxUsers" layoutX="346.0" layoutY="9.0" text="Users" />
+         <Label layoutX="113.0" layoutY="9.0" text="DayTours" />
+         <Button layoutX="161.0" layoutY="252.0" mnemonicParsing="false" onAction="#removeBooking" prefHeight="17.0" prefWidth="106.0" text="Remove booking" />
       </children>
    </AnchorPane>
    <Label layoutX="29.0" layoutY="43.0" prefHeight="17.0" prefWidth="65.0" text="Name:">
