@@ -12,7 +12,6 @@ import javafx.util.Pair;
 
 import java.net.URL;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -75,7 +74,7 @@ public class BookingController implements Initializable {
         }
     }
 
-    public void viewBookings(boolean b,User user) throws SQLException, ParseException {
+    public void viewBookings(boolean b,User user) throws SQLException {
         dialogBooking = createDialog(1);
         loggedInUser = user;
         if (b) {
