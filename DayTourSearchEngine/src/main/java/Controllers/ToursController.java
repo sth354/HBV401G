@@ -262,7 +262,7 @@ public class ToursController implements Initializable {
             bc = loadDialogBooking();
             uc = loadDialogUser();
             searchButton.requestFocus();
-        } catch (SQLException | ClassNotFoundException | IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

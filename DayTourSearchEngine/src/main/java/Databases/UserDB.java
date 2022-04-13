@@ -5,10 +5,13 @@ import Model.User;
 import java.sql.*;
 
 public class UserDB {
-    private final Connection conn;
+    private Connection conn;
 
-    public UserDB() throws SQLException, ClassNotFoundException {
-        conn = DriverManager.getConnection("jdbc:sqlite:..\\databases\\tours.db");
+    public UserDB() {
+        try {
+            conn = DriverManager.getConnection("jdbc:sqlite:..\\databases\\tours.db");
+        }
+        catch (SQLException ignored) {}
     }
 
     public User select(String email, String password) throws SQLException {

@@ -19,6 +19,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class BookingController implements Initializable {
+    //interface variables
     @FXML
     private AnchorPane fxDialog;
     @FXML
@@ -40,6 +41,7 @@ public class BookingController implements Initializable {
     @FXML
     private ListView<User> listUsers;
 
+    //constants
     private static final String BUY = "Buy Tour";
     private static final String OK = "Done";
     private static final String CANCEL = "Cancel";
@@ -50,10 +52,14 @@ public class BookingController implements Initializable {
     private static final ButtonType HTYPE = new ButtonType(CANCEL,
             ButtonBar.ButtonData.CANCEL_CLOSE);
 
+    //data variables
     private BookingDB bookings;
     private User loggedInUser;
     private Dialog<ButtonType> dialogBooking;
 
+    /**
+     * Creates dialog where the user can view and buy a tour.
+     */
     public void makeBooking(DayTour dayTour, User user) throws SQLException {
         dialogBooking = createDialog(0);
         fxName.setText(dayTour.getName());
@@ -122,11 +128,7 @@ public class BookingController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try {
-            bookings = new BookingDB();
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        bookings = new BookingDB();
     }
 
     private Dialog<ButtonType> createDialog(int i) {

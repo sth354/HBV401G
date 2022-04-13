@@ -103,11 +103,7 @@ public class UserController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try {
-            users = new UserDB();
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        users = new UserDB();
     }
 
     /**

@@ -10,10 +10,13 @@ import java.util.List;
 import java.util.Locale;
 
 public class TourDB {
-    private final Connection conn;
+    private Connection conn;
 
-    public TourDB() throws SQLException, ClassNotFoundException {
-        conn = DriverManager.getConnection("jdbc:sqlite:..\\databases\\tours.db");
+    public TourDB() {
+        try {
+            conn = DriverManager.getConnection("jdbc:sqlite:..\\databases\\tours.db");
+        }
+        catch (SQLException ignored) {}
     }
 
     public DayTour[] select(String searchQuery) throws SQLException {

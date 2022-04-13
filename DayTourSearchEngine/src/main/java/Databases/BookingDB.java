@@ -10,12 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookingDB {
-    private final Connection conn;
+    private Connection conn;
     private final UserDB users;
     private final TourDB tours;
 
-    public BookingDB() throws SQLException, ClassNotFoundException {
-        conn = DriverManager.getConnection("jdbc:sqlite:..\\databases\\tours.db");
+    public BookingDB() {
+        try {
+            conn = DriverManager.getConnection("jdbc:sqlite:..\\databases\\tours.db");
+        }
+        catch (SQLException ignored) {}
         users = new UserDB();
         tours = new TourDB();
     }
@@ -48,11 +51,12 @@ public class BookingDB {
     }
 
     public void insert(DayTour dayTour, User user) throws SQLException {
-        String str = "INSERT INTO BookingsDB VALUES (?,?,?);";
+        String str = "INSERT INTO BookingsDB(daytour,userEmail,userPassword) VALUES (?,?,?);";
         PreparedStatement ps = conn.prepareStatement(str);
         ps.setString(1,dayTour.getName());
         ps.setString(2,user.getEmailAddress());
         ps.setString(3,user.getPassword());
+        System.out.println(ps);
         ps.executeUpdate();
     }
 
