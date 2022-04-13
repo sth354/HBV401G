@@ -26,7 +26,7 @@ public class UserDB {
     }
 
     public void insert(User user) throws SQLException {
-        String str = "INSERT INTO UserDB VALUES (?,?,?);";
+        String str = "INSERT INTO UsersDB VALUES (?,?,?);";
         PreparedStatement ps = conn.prepareStatement(str);
         ps.setString(1,user.getName());
         ps.setString(2,user.getEmailAddress());
