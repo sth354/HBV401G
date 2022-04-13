@@ -1,5 +1,6 @@
 package Databases;
 
+import Model.DayTour;
 import Model.User;
 
 import java.sql.*;
@@ -22,6 +23,15 @@ public class UserDB {
             return new User(rs.getString("name"),rs.getString("email"),rs.getString("password"),rs.getBoolean("moderator"));
         }
         return null;
+    }
+
+    public void insert(User user) throws SQLException {
+        String str = "INSERT INTO UserDB VALUES (?,?,?);";
+        PreparedStatement ps = conn.prepareStatement(str);
+        ps.setString(1,user.getName());
+        ps.setString(2,user.getEmailAddress());
+        ps.setString(3,user.getPassword());
+        ps.executeUpdate();
     }
 
     public boolean checkName(String name) throws SQLException {

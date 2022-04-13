@@ -15,6 +15,8 @@ public class User {
         this.moderator = moderator;
     }
 
+    public String getName() { return name; }
+
     public String getEmailAddress() {
         return emailAddress;
     }

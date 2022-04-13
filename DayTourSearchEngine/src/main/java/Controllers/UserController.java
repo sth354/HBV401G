@@ -65,6 +65,7 @@ public class UserController implements Initializable {
                 userName.setText("");
                 registerEmail.setText("");
                 registerPw.setText("");
+                users.insert(user);
                 return user;
             }
             else {
