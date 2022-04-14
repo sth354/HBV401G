@@ -74,6 +74,9 @@ public class BookingController implements Initializable {
         }
     }
 
+    /**
+     * Creates dialog where the user can view their bookings.
+     */
     public void viewBookings(boolean b,User user) throws SQLException {
         dialogBooking = createDialog(1);
         loggedInUser = user;
@@ -104,6 +107,9 @@ public class BookingController implements Initializable {
         }
     }
 
+    /**
+     * Handler that removes the selected booking.
+     */
     public void removeBooking() {
         try {
             DayTour selectedTour = listTours.getSelectionModel().getSelectedItem();
@@ -114,6 +120,9 @@ public class BookingController implements Initializable {
         catch (NullPointerException | SQLException | IndexOutOfBoundsException ignored) {}
     }
 
+    /**
+     * Creates dialog where the user can view a tour.
+     */
     public void viewTour(DayTour dayTour) {
         dialogBooking = createDialog(2);
         fxName.setText(dayTour.getName());
@@ -130,6 +139,9 @@ public class BookingController implements Initializable {
         bookings = new BookingDB();
     }
 
+    /**
+     * Creates the dialogs for the class.
+     */
     private Dialog<ButtonType> createDialog(int i) {
         DialogPane p = new DialogPane();
         if (i == 1) {
@@ -156,6 +168,9 @@ public class BookingController implements Initializable {
         return d;
     }
 
+    /**
+     * Creates the header for the dialogs.
+     */
     private void head(Dialog<ButtonType> d,int i) {
         if (i == 0) {
             d.setHeaderText("Make booking:");
@@ -171,6 +186,10 @@ public class BookingController implements Initializable {
         }
     }
 
+    /**
+     * Creates the done button for the dialogs.
+     * @param d the dialog to add the button to
+     */
     private void doneCancelButtons(Dialog<ButtonType> d,int i) {
         if (i == 0) {
             d.getDialogPane().getButtonTypes().add(BTYPE);
