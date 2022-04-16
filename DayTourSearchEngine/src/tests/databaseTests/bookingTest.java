@@ -26,6 +26,14 @@ public class bookingTest {
         userTest = new User("testUser","test@email.com","test",false);
     }
 
+    @After
+    public void cleanUp() {
+        try {
+            bookings.delete(dayTourTest, userTest);
+        }
+        catch (SQLException ignored) {}
+    }
+
     @Test
     public void addBooking() throws SQLException {
         bookings.insert(dayTourTest,userTest);
