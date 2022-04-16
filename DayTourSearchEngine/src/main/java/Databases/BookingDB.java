@@ -74,7 +74,7 @@ public class BookingDB {
      * Sends an insert query to the database.
      */
     public void delete(DayTour dayTour, User user) throws SQLException {
-        String str = "DELETE FROM BookingsDB WHERE daytour = ? AND userEmail = ? AND userPassword = ?);";
+        String str = "DELETE FROM BookingsDB WHERE daytour = ? AND userEmail = ? AND userPassword = ?;";
         PreparedStatement ps = conn.prepareStatement(str);
         ps.setString(1,dayTour.getName());
         ps.setString(2,user.getEmailAddress());
