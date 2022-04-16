@@ -120,6 +120,7 @@ public class ToursController implements Initializable {
                 loggedInUser = user;
                 buyMessage.setVisible(false);
                 buyTour.setDisable(false);
+                registerButton.setVisible(false);
                 getMyBookingsButton.setDisable(false);
                 if (loggedInUser.isModerator()) {
                     getBookingsButton.setVisible(true);
