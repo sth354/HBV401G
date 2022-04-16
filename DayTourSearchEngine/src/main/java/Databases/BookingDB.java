@@ -66,12 +66,11 @@ public class BookingDB {
         ps.setString(1,dayTour.getName());
         ps.setString(2,user.getEmailAddress());
         ps.setString(3,user.getPassword());
-        System.out.println(ps);
         ps.executeUpdate();
     }
 
     /**
-     * Sends an insert query to the database.
+     * Sends a delete query to the database.
      */
     public void delete(DayTour dayTour, User user) throws SQLException {
         String str = "DELETE FROM BookingsDB WHERE daytour = ? AND userEmail = ? AND userPassword = ?;";
@@ -79,6 +78,6 @@ public class BookingDB {
         ps.setString(1,dayTour.getName());
         ps.setString(2,user.getEmailAddress());
         ps.setString(3,user.getPassword());
-        ps.executeUpdate(str);
+        ps.executeUpdate();
     }
 }

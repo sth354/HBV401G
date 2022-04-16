@@ -1,7 +1,6 @@
-package searchTests;
+package databaseTests;
 
 import Databases.BookingDB;
-import Databases.TourDB;
 import Model.DayTour;
 import Model.User;
 import org.junit.*;
@@ -19,7 +18,7 @@ public class bookingTest {
     private User userTest;
 
     @Before
-    public void setUp() throws SQLException, ClassNotFoundException {
+    public void setUp() {
         bookings = new BookingDB();
         DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         f = f.withLocale(Locale.ENGLISH);
