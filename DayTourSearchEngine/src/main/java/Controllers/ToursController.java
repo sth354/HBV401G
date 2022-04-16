@@ -103,16 +103,15 @@ public class ToursController implements Initializable {
            DayTour selectedTour = resultList.getSelectionModel().getSelectedItem();
            bc.makeBooking(selectedTour,loggedInUser);
        }
-       catch (NullPointerException | SQLException ignored) {}
+       catch (NullPointerException ignored) {}
     }
 
     /**
      * Handler that calls the login method in UserController.
      */
-    public void onLoginInClick() throws SQLException {
+    public void onLoginInClick() {
         if (loginButton.getText().equals("Log In")) {
             User user = uc.login();
-
             if (user != null) {
                 fxUserName.setText(user.toString());
                 loggedIn.setVisible(true);
@@ -143,7 +142,7 @@ public class ToursController implements Initializable {
     /**
      * Handler that calls the login method in UserController.
      */
-    public void onRegisterClick() throws SQLException {
+    public void onRegisterClick() {
         User user = uc.register();
 
         if (user != null) {
@@ -174,14 +173,14 @@ public class ToursController implements Initializable {
     /**
      * Handler that calls the viewBookings method in BookingController.
      */
-    public void getAllBookings() throws SQLException, ParseException {
+    public void getAllBookings() {
         bc.viewBookings(true,null);
     }
 
     /**
      * Handler that calls the viewBookings method in BookingController.
      */
-    public void getMyBookings() throws SQLException, ParseException {
+    public void getMyBookings() {
         bc.viewBookings(false,loggedInUser);
     }
 
@@ -244,25 +243,30 @@ public class ToursController implements Initializable {
      */
     public static DayTour[] search(String searchQuery, TourDB tours1) {
         try {
+            tours.connect();
             if (tours1 == null) {
-                return tours.select(searchQuery);
+                DayTour[] d = tours.select(searchQuery);
+                tours.disconnect();
+                return d;
             }
             else {
-                return tours1.select(searchQuery);
+                DayTour[] d = tours1.select(searchQuery);
+                tours1.disconnect();
+                return d;
             }
         }
-        catch (Exception e) {
+        catch (SQLException e) {
             return null;
         }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        tours = new TourDB();
+        searchButton.requestFocus();
         try {
-            tours = new TourDB();
             bc = loadDialogBooking();
             uc = loadDialogUser();
-            searchButton.requestFocus();
         } catch (IOException e) {
             e.printStackTrace();
         }

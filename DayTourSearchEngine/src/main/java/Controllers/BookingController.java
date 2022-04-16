@@ -59,7 +59,7 @@ public class BookingController implements Initializable {
     /**
      * Creates dialog where the user can view and buy a tour.
      */
-    public void makeBooking(DayTour dayTour, User user) throws SQLException {
+    public void makeBooking(DayTour dayTour, User user) {
         dialogBooking = createDialog(0);
         fxName.setText(dayTour.getName());
         fxDate.setText(dayTour.getDate().toString());
@@ -70,40 +70,53 @@ public class BookingController implements Initializable {
         Optional<ButtonType> out = dialogBooking.showAndWait();
         if (out.isPresent() && (out.get() // buy
                 .getButtonData() == ButtonBar.ButtonData.OK_DONE)) {
-            bookings.insert(dayTour,user);
+            try {
+                bookings.connect();
+                bookings.insert(dayTour,user);
+                bookings.disconnect();
+            }
+            catch (SQLException e){
+                e.printStackTrace();
+            }
         }
     }
 
     /**
      * Creates dialog where the user can view their bookings.
      */
-    public void viewBookings(boolean b,User user) throws SQLException {
+    public void viewBookings(boolean b,User user) {
         dialogBooking = createDialog(1);
         loggedInUser = user;
-        if (b) {
-            List<Pair<DayTour, User>> list = bookings.select();
-            List<DayTour> dayTours = new ArrayList<>();
-            List<User> users = new ArrayList<>();
+        try {
+            bookings.connect();
+            if (b) {
+                List<Pair<DayTour, User>> list = bookings.select();
+                List<DayTour> dayTours = new ArrayList<>();
+                List<User> users = new ArrayList<>();
 
-            for (Pair<DayTour, User> p : list) {
-                dayTours.add(p.getKey());
-                users.add(p.getValue());
+                for (Pair<DayTour, User> p : list) {
+                    dayTours.add(p.getKey());
+                    users.add(p.getValue());
+                }
+                listTours.setItems(FXCollections.observableList(dayTours));
+                listUsers.setItems(FXCollections.observableList(users));
+                dialogBooking.showAndWait();
+            } else {
+                List<DayTour> dayTours = bookings.selectByUser(user);
+                listUsers.setVisible(false);
+                fxUsers.setVisible(false);
+                listTours.setItems(FXCollections.observableList(dayTours));
+                List<User> userList = new ArrayList<>();
+                userList.add(user);
+                listUsers.setItems(FXCollections.observableList(userList));
+                dialogBooking.showAndWait();
+                listUsers.setVisible(true);
+                fxUsers.setVisible(true);
             }
-            listTours.setItems(FXCollections.observableList(dayTours));
-            listUsers.setItems(FXCollections.observableList(users));
-            dialogBooking.showAndWait();
+            bookings.disconnect();
         }
-        else {
-            List<DayTour> dayTours = bookings.selectByUser(user);
-            listUsers.setVisible(false);
-            fxUsers.setVisible(false);
-            listTours.setItems(FXCollections.observableList(dayTours));
-            List<User> userList = new ArrayList<>();
-            userList.add(user);
-            listUsers.setItems(FXCollections.observableList(userList));
-            dialogBooking.showAndWait();
-            listUsers.setVisible(true);
-            fxUsers.setVisible(true);
+        catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -112,12 +125,16 @@ public class BookingController implements Initializable {
      */
     public void removeBooking() {
         try {
+            bookings.connect();
             DayTour selectedTour = listTours.getSelectionModel().getSelectedItem();
             listUsers.getItems().remove(listTours.getSelectionModel().getSelectedIndex());
             listTours.getItems().remove(selectedTour);
             bookings.delete(selectedTour,loggedInUser);
+            bookings.disconnect();
         }
-        catch (NullPointerException | SQLException | IndexOutOfBoundsException ignored) {}
+        catch (NullPointerException | SQLException | IndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

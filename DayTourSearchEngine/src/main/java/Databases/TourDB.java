@@ -11,13 +11,9 @@ import java.util.Locale;
 
 public class TourDB {
     private Connection conn;
+    private Statement s;
 
-    public TourDB() {
-        try {
-            conn = DriverManager.getConnection("jdbc:sqlite:..\\databases\\tours.db");
-        }
-        catch (SQLException ignored) {}
-    }
+    public TourDB() {}
 
     /**
      * Sends an select query to the database.
@@ -26,7 +22,6 @@ public class TourDB {
     public DayTour[] select(String searchQuery) throws SQLException {
         List<DayTour> out = new ArrayList<>();
 
-        Statement s = conn.createStatement();
         String str = "SELECT * FROM DayToursDB WHERE name LIKE \"%"+searchQuery+"%\";";
         ResultSet rs = s.executeQuery(str);
 
@@ -38,5 +33,15 @@ public class TourDB {
         }
 
         return out.toArray(new DayTour[out.size()]);
+    }
+
+    public void connect() throws SQLException {
+        conn = DriverManager.getConnection("jdbc:sqlite:..\\databases\\tours.db");
+        s = conn.createStatement();
+    }
+
+    public void disconnect() throws SQLException {
+        conn.close();
+        s.close();
     }
 }

@@ -53,25 +53,31 @@ public class UserController implements Initializable {
     * when the "Register" button is pressed in
     * the main interface.
     **/
-    public User register() throws SQLException {
+    public User register() {
         dialog = createDialogRegister();
         Optional<ButtonType> out = dialog.showAndWait();
-
-        if (out.isPresent() && (out.get() //register
-                .getButtonData() == ButtonBar.ButtonData.OK_DONE)) {
-            User user = new User(userName.getText(),registerEmail.getText(),registerPw.getText(),false);
-            if (checkUser(userName.getText(),registerEmail.getText(),registerPw.getText())) {
-                error1.setText("");
-                userName.setText("");
-                registerEmail.setText("");
-                registerPw.setText("");
-                users.insert(user);
-                return user;
+        try {
+            users.connect();
+            if (out.isPresent() && (out.get() //register
+                    .getButtonData() == ButtonBar.ButtonData.OK_DONE)) {
+                User user = new User(userName.getText(), registerEmail.getText(), registerPw.getText(), false);
+                if (checkUser(userName.getText(), registerEmail.getText(), registerPw.getText())) {
+                    error1.setText("");
+                    userName.setText("");
+                    registerEmail.setText("");
+                    registerPw.setText("");
+                    users.insert(user);
+                    users.disconnect();
+                    return user;
+                } else {
+                    error1.setText("User not valid");
+                    return register();
+                }
             }
-            else {
-                error1.setText("User not valid");
-                return register();
-            }
+            users.disconnect();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
         }
         return null;
     }
@@ -81,20 +87,27 @@ public class UserController implements Initializable {
      * when the "Log In" button is pressed in
      * the main interface.
      **/
-    public User login() throws SQLException {
+    public User login() {
         dialog = createDialogLogin();
         Optional<ButtonType> out = dialog.showAndWait();
-        if (out.isPresent() && (out.get() //login
-                .getButtonData() == ButtonBar.ButtonData.OK_DONE)) {
-            User user = users.select(loginEmail.getText(), loginPw.getText());
-            if (checkUser(null,loginEmail.getText(),loginPw.getText())) {
-                error.setText("");
-                return user;
+        try {
+            users.connect();
+            if (out.isPresent() && (out.get() //login
+                    .getButtonData() == ButtonBar.ButtonData.OK_DONE)) {
+                User user = users.select(loginEmail.getText(), loginPw.getText());
+                if (checkUser(null, loginEmail.getText(), loginPw.getText())) {
+                    error.setText("");
+                    users.disconnect();
+                    return user;
+                } else {
+                    error.setText("User not found");
+                    return login();
+                }
             }
-            else {
-                error.setText("User not found");
-                return login();
-            }
+            users.disconnect();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
         }
         error.setText("");
         loginEmail.setText("");
@@ -112,22 +125,25 @@ public class UserController implements Initializable {
      * @param email is the user's email
      * @param password is the user's password
      * @return Returns true if user is valid, else false.
-     * @throws SQLException
      */
-    private boolean checkUser(String name, String email,String password) throws SQLException {
+    private boolean checkUser(String name, String email,String password) {
         Pattern pattern = Pattern.compile(".+@.+\\.[a-z]+");
         Matcher m = pattern.matcher(email);
-        User user = users.select(email, password);
-        if (!(name == null)) {
-            if (users.checkName(name)) {
-                return false;
+        try {
+            User user = users.select(email, password);
+            if (!(name == null)) {
+                if (users.checkName(name)) {
+                    return false;
+                } else if (m.matches() && password.length() >= 1) {
+                    return user == null;
+                }
             }
-            else if (m.matches() && password.length() >= 1) {
-                return user == null;
+            if (m.matches() && password.length() >= 1) {
+                return user != null;
             }
         }
-        if (m.matches() && password.length() >= 1) {
-            return user != null;
+        catch (SQLException e) {
+            e.printStackTrace();
         }
         return false;
     }
@@ -181,7 +197,6 @@ public class UserController implements Initializable {
     /**
      * Sets the head and title for dialog d
      * @param d is a dialog
-     * @return void
      **/
     private void loginHead(Dialog<ButtonType> d) {
         d.setHeaderText("Login:");
@@ -191,7 +206,6 @@ public class UserController implements Initializable {
     /**
      * Sets the head and title for dialog d
      * @param d is a dialog
-     * @return void
      **/
     private void registerHead(Dialog<ButtonType> d) {
         d.setHeaderText("Register:");

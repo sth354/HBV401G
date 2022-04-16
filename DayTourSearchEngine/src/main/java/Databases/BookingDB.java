@@ -10,14 +10,11 @@ import java.util.List;
 
 public class BookingDB {
     private Connection conn;
+    private Statement s;
     private final UserDB users;
     private final TourDB tours;
 
     public BookingDB() {
-        try {
-            conn = DriverManager.getConnection("jdbc:sqlite:..\\databases\\tours.db");
-        }
-        catch (SQLException ignored) {}
         users = new UserDB();
         tours = new TourDB();
     }
@@ -28,13 +25,16 @@ public class BookingDB {
      */
     public List<Pair<DayTour,User>> select() throws SQLException {
         List<Pair<DayTour,User>> list = new ArrayList<>();
-        Statement s = conn.createStatement();
         String str = "SELECT * FROM BookingsDB;";
         ResultSet rs = s.executeQuery(str);
 
         while (rs.next()) {
+            tours.connect();
             DayTour[] dayTour = tours.select(rs.getString("daytour"));
+            tours.disconnect();
+            users.connect();
             User user = users.select(rs.getString("userEmail"), rs.getString("userPassword"));
+            users.disconnect();
             list.add(new Pair<>(dayTour[0], user));
         }
         return list;
@@ -46,12 +46,13 @@ public class BookingDB {
      */
     public List<DayTour> selectByUser(User user) throws SQLException {
         List<DayTour> list = new ArrayList<>();
-        Statement s = conn.createStatement();
         String str = "SELECT * FROM BookingsDB WHERE userEmail = \""+user.getEmailAddress()+"\" AND userPassword = \""+user.getPassword()+"\";";
         ResultSet rs = s.executeQuery(str);
 
         while (rs.next()) {
+            tours.connect();
             DayTour[] dayTour = tours.select(rs.getString("daytour"));
+            tours.disconnect();
             list.add(dayTour[0]);
         }
         return list;
@@ -67,6 +68,7 @@ public class BookingDB {
         ps.setString(2,user.getEmailAddress());
         ps.setString(3,user.getPassword());
         ps.executeUpdate();
+        ps.close();
     }
 
     /**
@@ -79,5 +81,16 @@ public class BookingDB {
         ps.setString(2,user.getEmailAddress());
         ps.setString(3,user.getPassword());
         ps.executeUpdate();
+        ps.close();
+    }
+
+    public void connect() throws SQLException {
+        conn = DriverManager.getConnection("jdbc:sqlite:..\\databases\\tours.db");
+        s = conn.createStatement();
+    }
+
+    public void disconnect() throws SQLException {
+        conn.close();
+        s.close();
     }
 }

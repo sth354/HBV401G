@@ -20,6 +20,12 @@ public class bookingTest {
     @Before
     public void setUp() {
         bookings = new BookingDB();
+        try {
+            bookings.connect();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
         DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         f = f.withLocale(Locale.ENGLISH);
         dayTourTest = new DayTour("TestTour","tourtest", LocalDate.parse("2023/01/20",f),0,0, 0.0F);
@@ -30,6 +36,10 @@ public class bookingTest {
     public void cleanUp() {
         try {
             bookings.delete(dayTourTest, userTest);
+        }
+        catch (SQLException ignored) {}
+        try {
+            bookings.disconnect();
         }
         catch (SQLException ignored) {}
     }

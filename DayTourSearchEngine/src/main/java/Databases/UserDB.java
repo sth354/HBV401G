@@ -6,20 +6,15 @@ import java.sql.*;
 
 public class UserDB {
     private Connection conn;
+    private Statement s;
 
-    public UserDB() {
-        try {
-            conn = DriverManager.getConnection("jdbc:sqlite:..\\databases\\tours.db");
-        }
-        catch (SQLException ignored) {}
-    }
+    public UserDB() {}
 
     /**
-     * Sends an select query to the database.
+     * Sends a select query to the database.
      * @return the result from the database
      */
     public User select(String email, String password) throws SQLException {
-        Statement s = conn.createStatement();
         String str = "SELECT * FROM UsersDB WHERE email = \""+email+"\" AND password = \""+password+"\";";
         ResultSet rs = s.executeQuery(str);
         if (rs.next()) {
@@ -39,6 +34,7 @@ public class UserDB {
         ps.setString(3,user.getPassword());
         ps.setString(4,"0");
         ps.executeUpdate();
+        ps.close();
     }
 
     /**
@@ -46,9 +42,18 @@ public class UserDB {
      * @return true if the name exists
      */
     public boolean checkName(String name) throws SQLException {
-        Statement s = conn.createStatement();
         String str = "SELECT * FROM UsersDB WHERE name = \""+name+"\";";
         ResultSet rs = s.executeQuery(str);
         return rs.next();
+    }
+
+    public void connect() throws SQLException {
+        conn = DriverManager.getConnection("jdbc:sqlite:..\\databases\\tours.db");
+        s = conn.createStatement();
+    }
+
+    public void disconnect() throws SQLException {
+        conn.close();
+        s.close();
     }
 }
