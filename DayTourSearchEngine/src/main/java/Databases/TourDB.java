@@ -19,6 +19,10 @@ public class TourDB {
         catch (SQLException ignored) {}
     }
 
+    /**
+     * Sends an select query to the database.
+     * @return the result from the database
+     */
     public DayTour[] select(String searchQuery) throws SQLException {
         List<DayTour> out = new ArrayList<>();
 

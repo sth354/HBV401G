@@ -1,6 +1,5 @@
 package Databases;
 
-import Model.DayTour;
 import Model.User;
 
 import java.sql.*;
@@ -15,6 +14,10 @@ public class UserDB {
         catch (SQLException ignored) {}
     }
 
+    /**
+     * Sends an select query to the database.
+     * @return the result from the database
+     */
     public User select(String email, String password) throws SQLException {
         Statement s = conn.createStatement();
         String str = "SELECT * FROM UsersDB WHERE email = \""+email+"\" AND password = \""+password+"\";";
@@ -25,6 +28,9 @@ public class UserDB {
         return null;
     }
 
+    /**
+     * Sends an insert query to the database.
+     */
     public void insert(User user) throws SQLException {
         String str = "INSERT INTO UsersDB VALUES (?,?,?);";
         PreparedStatement ps = conn.prepareStatement(str);
@@ -34,6 +40,10 @@ public class UserDB {
         ps.executeUpdate();
     }
 
+    /**
+     * Checks if the name is in the database already.
+     * @return true if the name exists
+     */
     public boolean checkName(String name) throws SQLException {
         Statement s = conn.createStatement();
         String str = "SELECT * FROM UsersDB WHERE name = \""+name+"\";";

@@ -22,6 +22,10 @@ public class BookingDB {
         tours = new TourDB();
     }
 
+    /**
+     * Sends a select query to the database.
+     * @return the result from the database
+     */
     public List<Pair<DayTour,User>> select() throws SQLException {
         List<Pair<DayTour,User>> list = new ArrayList<>();
         Statement s = conn.createStatement();
@@ -36,6 +40,10 @@ public class BookingDB {
         return list;
     }
 
+    /**
+     * Sends a select query to the database.
+     * @return the result from the database
+     */
     public List<DayTour> selectByUser(User user) throws SQLException {
         List<DayTour> list = new ArrayList<>();
         Statement s = conn.createStatement();
@@ -49,6 +57,9 @@ public class BookingDB {
         return list;
     }
 
+    /**
+     * Sends an insert query to the database.
+     */
     public void insert(DayTour dayTour, User user) throws SQLException {
         String str = "INSERT INTO BookingsDB VALUES (?,?,?);";
         PreparedStatement ps = conn.prepareStatement(str);
@@ -59,6 +70,9 @@ public class BookingDB {
         ps.executeUpdate();
     }
 
+    /**
+     * Sends an insert query to the database.
+     */
     public void delete(DayTour dayTour, User user) throws SQLException {
         String str = "DELETE FROM BookingsDB WHERE daytour = ? AND userEmail = ? AND userPassword = ?);";
         PreparedStatement ps = conn.prepareStatement(str);
