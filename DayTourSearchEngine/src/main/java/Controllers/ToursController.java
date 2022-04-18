@@ -17,7 +17,6 @@ import javafx.scene.paint.Color;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.ResourceBundle;
@@ -250,9 +249,7 @@ public class ToursController implements Initializable {
                 return d;
             }
             else {
-                DayTour[] d = tours1.select(searchQuery);
-                tours1.disconnect();
-                return d;
+                return tours1.select(searchQuery);
             }
         }
         catch (SQLException e) {

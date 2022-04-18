@@ -47,11 +47,17 @@ public class UserDB {
         return rs.next();
     }
 
+    /**
+     * Creates the connection to the database.
+     */
     public void connect() throws SQLException {
         conn = DriverManager.getConnection("jdbc:sqlite:..\\databases\\tours.db");
         s = conn.createStatement();
     }
 
+    /**
+     * Removes the connection to the database.
+     */
     public void disconnect() throws SQLException {
         conn.close();
         s.close();
