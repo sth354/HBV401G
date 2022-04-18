@@ -17,15 +17,15 @@ public class searchForTourTest {
     private TourDB tours;
 
     @Before
-    public void setUp() throws SQLException, ClassNotFoundException {
+    public void setUp() {
         tours = new TourDB();
     }
     @Test
     public void testFindOne() throws ParseException {
         DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         f = f.withLocale(Locale.ENGLISH);
-        DayTour tour = new DayTour("Tour1","tourtest", LocalDate.parse("2022/03/31",f),120,5000, 0.0F);
-        String searchQuery = "Tour1";
+        DayTour tour = new DayTour("TestTour","tourtest", LocalDate.parse("2022/01/20",f),0,0, 0.0F);
+        String searchQuery = "TestTour";
         DayTour[] testSearch = ToursController.search(searchQuery,tours);
         assertNotNull(testSearch);
         assertEquals(tour, testSearch[0]);
@@ -34,21 +34,21 @@ public class searchForTourTest {
     public void testFindCaps() throws ParseException {
         DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         f = f.withLocale(Locale.ENGLISH);
-        DayTour tour = new DayTour("Tour2","tourtest",LocalDate.parse("2022/04/01",f),120,5000, 0.0F);
-        String searchQuery = "TOUR2";
+        DayTour tour = new DayTour("TestTour","tourtest", LocalDate.parse("2022/01/20",f),0,0, 0.0F);
+        String searchQuery = "TestTOUR";
         DayTour[] testSearch = ToursController.search(searchQuery,tours);
         assertNotNull(testSearch);
         assertEquals(tour, testSearch[0]);
     }
     @Test
     public void testNotFind() {
-        String searchQuery = "Tour4";
+        String searchQuery = "TourTest";
         DayTour[] testSearch = ToursController.search(searchQuery,tours);
         assertEquals(0,testSearch.length);
     }
     @Test
     public void testFindMultiple() {
-        String searchQuery = "Tour";
+        String searchQuery = "Hik";
         DayTour[] testSearch = ToursController.search(searchQuery,tours);
         assertNotNull(testSearch);
         assertTrue(testSearch.length > 1);

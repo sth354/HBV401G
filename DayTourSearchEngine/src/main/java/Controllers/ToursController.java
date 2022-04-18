@@ -242,14 +242,17 @@ public class ToursController implements Initializable {
      */
     public static DayTour[] search(String searchQuery, TourDB tours1) {
         try {
-            tours.connect();
             if (tours1 == null) {
+                tours.connect();
                 DayTour[] d = tours.select(searchQuery);
                 tours.disconnect();
                 return d;
             }
             else {
-                return tours1.select(searchQuery);
+                tours1.connect();
+                DayTour[] d = tours1.select(searchQuery);
+                tours1.disconnect();
+                return d;
             }
         }
         catch (SQLException e) {

@@ -63,7 +63,7 @@ public class BookingController implements Initializable {
         dialogBooking = createDialog(0);
         fxName.setText(dayTour.getName());
         fxDate.setText(dayTour.getDate().toString());
-        fxLength.setText(dayTour.getLength()+"min");
+        fxLength.setText(dayTour.getLength()+" hours");
         fxPrice.setText(dayTour.getPrice()+"kr");
         fxDescription.setText(dayTour.getDescription());
 
@@ -144,7 +144,7 @@ public class BookingController implements Initializable {
         dialogBooking = createDialog(2);
         fxName.setText(dayTour.getName());
         fxDate.setText(dayTour.getDate().toString());
-        fxLength.setText(dayTour.getLength()+"min");
+        fxLength.setText(dayTour.getLength()+" hours");
         fxPrice.setText(dayTour.getPrice()+"kr");
         fxDescription.setText(dayTour.getDescription());
 

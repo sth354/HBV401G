@@ -53,6 +53,6 @@ public class DayTour {
 
     @Override
     public String toString() {
-        return name + ", " + date.toString() + ", " + length + "min, " + price + "kr";
+        return name + ", " + date.toString() + ", " + length + " hours, " + price + "kr";
     }
 }
