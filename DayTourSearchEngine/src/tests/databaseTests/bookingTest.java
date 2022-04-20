@@ -28,7 +28,7 @@ public class bookingTest {
         }
         DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         f = f.withLocale(Locale.ENGLISH);
-        dayTourTest = new DayTour("TestTour","tourtest", LocalDate.parse("2022/01/20",f),0,0, 0.0F);
+        dayTourTest = new DayTour("Northern Lights Super Jeep","Chase the Auroras in a comfort Jeep from Reykjavik", LocalDate.parse("2022/04/23",f),3,16000, 0.0F);
         userTest = new User("testUser","test@email.com","test",false);
     }
 

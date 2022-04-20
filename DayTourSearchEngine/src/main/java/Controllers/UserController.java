@@ -71,6 +71,7 @@ public class UserController implements Initializable {
                     return user;
                 } else {
                     error1.setText("User not valid");
+                    users.disconnect();
                     return register();
                 }
             }
